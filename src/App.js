@@ -1,39 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./App.css";
 import Post from "./Post";
+import {db} from "./firebase";
 
 function App() {
 
-  const [posts, setPosts] = useState([
-    {user: "David",
-     likes: 1000,
-     imageUrl: "https://www.pandasecurity.com/mediacenter/src/uploads/2013/11/pandasecurity-facebook-photo-privacy.jpg",
-     caption: "This is Post caption of the instagram react clone lorem30d Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    comments: [
-      {user: "Artur", comment: "Devid this is realy good idea."},
-      {user: "Sophia", comment: "Devid this is realy good idea from Sophia."}
-    ]
-    },
-    {user: "Artur",
-     likes: 1595,
-     imageUrl: "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
-     caption: "This is Post caption of the instagram react clone lorem30d Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    comments: [
-      {user: "Artur", comment: "Devid this is realy good idea."},
-      {user: "Sophia", comment: "Devid this is realy good idea from Sophia."}
-    ]
-    },
-    {user: "Elza",
-     likes: 505,
-     imageUrl: "https://images.unsplash.com/photo-1555445091-5a8b655e8a4a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
-     caption: "This is Post caption of the instagram react clone lorem30d Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    comments: [
-      {user: "David", comment: "Devid this is realy good idea."},
-      {user: "Bella", comment: "Eliz this is realy idea."},
-      {user: "Sophia", comment: "Devid this is realy good idea from Sophia."}
-    ]
-    }
-  ])
+  const [posts, setPosts] = useState([])
+
+
+  useEffect(() =>{
+    //This is how to get info from firebase
+      db.collection("posts").onSnapshot(snapshot => {
+        setPosts(snapshot.docs.map(doc => ({
+          data: doc.data(),
+          id: doc.id
+          })));
+      })
+  }, [])
+
 
   return (
     <div className="App">
@@ -60,7 +44,7 @@ function App() {
         <h1>Instagram react Clone</h1>
 
         {
-          posts.map(post => <Post {...(post)} />  )
+          posts.map(post => <Post key={post.id} id={post.id} {...(post.data)} />  )
         }
 
       </div>

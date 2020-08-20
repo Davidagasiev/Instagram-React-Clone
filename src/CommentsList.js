@@ -2,17 +2,19 @@ import React, {useState} from "react";
 import "./CommentsList.css";
 import useToggle from "./Hooks/useToggle";
 
+import {v4 as uuid} from "uuid";
+
 function CommentsList(props) {
     const [showComments, setShowComments] = useToggle(false);
-
+    const comments = eval(props.comments);
     return (
         <div className="CommentsList">
             {!showComments ?
-                (<button onClick={setShowComments} className="commentsList_togglecomments">View All {props.comments.length} Comments</button>)
+                (<button onClick={setShowComments} className="commentsList_togglecomments">View All  Comments</button>)
                 :
                 (<>
                     <ul>
-                        {props.comments.map(comment => (<li style={{margin: "15px 0"}}><p>
+                        {comments.map(comment => (<li key={uuid()} style={{margin: "15px 0"}}><p>
                             <span>{comment.user}</span>
                             {comment.comment}
                         </p></li>))

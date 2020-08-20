@@ -17,7 +17,7 @@ function Post(props) {
 
             <div className="post_header">
                 <div className="post_userinfo">
-                    <Avatar>{props.user[0]}</Avatar>
+                    <Avatar>{(props.user + "")[0]}</Avatar>
                     <span>{props.user}</span>
                 </div>
                 <div className="post_more">
@@ -48,7 +48,7 @@ function Post(props) {
                 <p><span>{props.user}</span>{props.caption}</p>
             </div>
 
-            <CommentsList comments={props.comments}/>
+            <CommentsList key={props.id} id={props.id} comments={props.comments}/>
 
             <div className="post_commentform">
                 <form>
