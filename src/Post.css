@@ -1,0 +1,81 @@
+.Post{
+    max-width: 600px;
+    border: 1px solid lightgrey;
+    background-color: white;
+    margin-bottom: 50px;
+}
+
+.Post img{
+    width: 100%;
+    object-fit: contain;
+    border-bottom: 1px solid lightgrey;
+    border-top: 1px solid lightgrey
+}
+
+.post_header, .post_footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.post_userinfo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+}
+
+.Post span{
+    font-weight: 500;
+    margin-left: 15px;
+}
+
+.post_more{
+    padding-right: 10px;
+}
+
+
+.post_caption{
+    width: 95%;
+    margin: 10px auto 20px auto;
+}
+
+.post_caption p{
+    word-wrap: break-word;
+}
+
+.post_caption span{
+    margin: 0 10px 0 0;
+}
+
+.post_commentform{
+    border-top: 1px solid lightgrey;
+}
+
+.post_commentform form{
+    width: 95%;
+    margin: 15px auto 15px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post_commentform input{
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+.post_commentform button{
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-weight: 600;
+    color: #0099ff;
+    background-color: white;
+}
+
+.post_commentform button:disabled{
+    color: lightskyblue;
+}

@@ -1,0 +1,16 @@
+.CommentsList{
+    width: 95%;
+    margin: 15px auto 15px auto;
+}
+
+.commentsList_togglecomments{
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #0174c0;
+    background-color: white;
+}
+
+.CommentsList span{
+    margin: 0 10px 0 0;
+}
