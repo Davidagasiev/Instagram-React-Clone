@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./App.css";
 import Post from "./Post";
-import {db} from "./firebase";
+import {db, auth} from "./firebase";
 import useInput from "./Hooks/useInput";
 import useToggle from "./Hooks/useToggle";
 
@@ -14,6 +14,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+
+import InstagramEmbed from 'react-instagram-embed';
 
 // Modal styles
 const useStyles = makeStyles((theme) => ({
@@ -90,13 +92,46 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
     resetHandleLogInPassChange();
   }
 
+
+
   function handleSignUpSubmit(e) {
     e.preventDefault();
     setSignUpOpen(false);
     resetHandleSignUpUserChange();
     resetHandleSignUpEmailChange();
     resetHandleSignUpPassChange();
+
+
+
+    auth
+    .createUserWithEmailAndPassword(handleSignUpEmailChange, handleSignUpPassChange)
+    .then((authUser) => {
+      return authUser.user.updateProfile({
+        displayName: handleSignUpUserChange
+      })
+    })
+    .catch(error => alert(error.message));
+
   }
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      if(authUser) {
+        //If User Logged In...
+        console.log(authUser);
+        setUser(authUser);
+      }else{
+        //If User Logges Out...
+        setUser(null);
+      }
+    })
+
+    return () => {
+      unsubscribe();
+    }
+  }, [user,handleSignUpUserChange])
 //Handling Log In and Sign Up
 
 // For log in Modal
@@ -129,6 +164,84 @@ const handleSignInModalClose = () => {
 };
 // For Sign Up Modal
 
+// For Sign Up and Log In Modals
+
+
+const whenLoggedOut = (
+  <>
+  <MenuItem onClick={handleLogIn}>Log In</MenuItem>
+
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleLogInModalClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+              <Fade in={open}>
+                <div className={classes.paper}>
+                  <form  className="userAuth">
+                    <h1>Log In</h1>
+                    <TextField type="email" onSubmit={handleLogInSubmit} required value={handleLogInEmailChange} onChange={setHandleLogInEmailChange} style={{marginTop: "15px", marginBottom: "10px"}} label="Email" />
+                    <TextField type="password" required value={handleLogInPassChange} onChange={setHandleLogInPassChange} style={{marginTop: "5px", marginBottom: "25px"}} label="Password" />
+                   <button style={{backgroundColor: "transparent", border: "none", outline: "none"}}>
+                     <Button style={{width: "100%"}} variant="contained" color="primary">Log In</Button>
+                   </button>
+                    
+                  </form>
+                </div>
+              </Fade>
+            </Modal>
+
+
+{/********************************* Log In Modal ****************************************************/}
+
+
+            <MenuItem onClick={handleSignUp}>Sign Up</MenuItem>
+
+{/********************************* Sign Up Modal ****************************************************/}
+
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={signInOpen}
+                onClose={handleSignInModalClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+              <Fade in={signInOpen}>
+                <div className={classes.paper}>
+                  <form onSubmit={handleSignUpSubmit} className="userAuth">
+                    <h1>Sign Up</h1>
+                    <TextField type="text" required value={handleSignUpUserChange} onChange={setHandleSignUpUserChange} style={{marginTop: "15px", marginBottom: "10px"}} label="UserName" />
+                    <TextField type="email" required value={handleSignUpEmailChange} onChange={setHandleSignUpEmailChange} style={{marginTop: "5px", marginBottom: "10px"}} label="Email" />
+                    <TextField type="password" required value={handleSignUpPassChange} onChange={setHandleSignUpPassChange} style={{marginTop: "5px", marginBottom: "25px"}} label="Password" />
+                   <button style={{backgroundColor: "transparent", border: "none", outline: "none"}}>
+                     <Button style={{width: "100%"}}  variant="contained" color="primary">Log In</Button>
+                   </button>
+                    
+                  </form>
+                </div>
+              </Fade>
+            </Modal>
+
+
+{/********************************* Sign Up Modal ****************************************************/}
+</>
+);
+// For Log Out Button
+const whenLoggedIn = (
+  <MenuItem onClick={() => auth.signOut() }>Log Out</MenuItem>
+);
 
   return (
     <div className="App">
@@ -157,74 +270,11 @@ const handleSignInModalClose = () => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleLogIn}>Log In</MenuItem>
-{/********************************* Log In Modal ****************************************************/}
-
-                <Modal
-                  aria-labelledby="transition-modal-title"
-                  aria-describedby="transition-modal-description"
-                  className={classes.modal}
-                  open={open}
-                  onClose={handleLogInModalClose}
-                  closeAfterTransition
-                  BackdropComponent={Backdrop}
-                  BackdropProps={{
-                    timeout: 500,
-                  }}
-                >
-                <Fade in={open}>
-                  <div className={classes.paper}>
-                    <form onSubmit={handleLogInSubmit} className="userAuth">
-                      <h1>Log In</h1>
-                      <TextField type="email" required value={handleLogInEmailChange} onChange={setHandleLogInEmailChange} style={{marginTop: "15px", marginBottom: "10px"}} id="standard-basic" label="Email" />
-                      <TextField type="password" required value={handleLogInPassChange} onChange={setHandleLogInPassChange} style={{marginTop: "5px", marginBottom: "25px"}} id="standard-basic" label="Password" />
-                     <button style={{backgroundColor: "transparent", border: "none", outline: "none"}}>
-                       <Button style={{width: "100%"}}  variant="contained" color="primary">Log In</Button>
-                     </button>
-                      
-                    </form>
-                  </div>
-                </Fade>
-              </Modal>
-
-
-{/********************************* Log In Modal ****************************************************/}
-
-
-              <MenuItem onClick={handleSignUp}>Sign Up</MenuItem>
-
-{/********************************* Sign Up Modal ****************************************************/}
-
-              <Modal
-                  aria-labelledby="transition-modal-title"
-                  aria-describedby="transition-modal-description"
-                  className={classes.modal}
-                  open={signInOpen}
-                  onClose={handleSignInModalClose}
-                  closeAfterTransition
-                  BackdropComponent={Backdrop}
-                  BackdropProps={{
-                    timeout: 500,
-                  }}
-                >
-                <Fade in={signInOpen}>
-                  <div className={classes.paper}>
-                    <form onSubmit={handleSignUpSubmit} className="userAuth">
-                      <h1>Sign Up</h1>
-                      <TextField type="text" required value={handleSignUpUserChange} onChange={setHandleSignUpUserChange} style={{marginTop: "15px", marginBottom: "10px"}} id="standard-basic" label="UserName" />
-                      <TextField type="email" required value={handleSignUpEmailChange} onChange={setHandleSignUpEmailChange} style={{marginTop: "5px", marginBottom: "10px"}} id="standard-basic" label="Email" />
-                      <TextField type="password" required value={handleSignUpPassChange} onChange={setHandleSignUpPassChange} style={{marginTop: "5px", marginBottom: "25px"}} id="standard-basic" label="Password" />
-                     <button style={{backgroundColor: "transparent", border: "none", outline: "none"}}>
-                       <Button style={{width: "100%"}}  variant="contained" color="primary">Log In</Button>
-                     </button>
-                      
-                    </form>
-                  </div>
-                </Fade>
-              </Modal>
-
-
-{/********************************* Sign Up Modal ****************************************************/}
+            
+            {
+              user ? whenLoggedIn : whenLoggedOut
+            }
+              
             </Menu>
           </div>
 
@@ -234,12 +284,29 @@ const handleSignInModalClose = () => {
     {/* Navbar */}
 
       <div className="container">
-        <h1>Instagram react Clone</h1>
+          <div>
 
         {
           posts.map(post => <Post key={post.id} id={post.id} {...(post.data)} />  )
         }
-
+      </div>
+{/**************************** Instagram Sidebar 8*************************************/}
+            <div className="embed">
+              <InstagramEmbed
+                url='https://www.instagram.com/p/B_9au0YnJok/'
+                maxWidth={400}
+                hideCaption={false}
+                containerTagName='div'
+                protocol=''
+                injectScript
+                onLoading={() => {}}
+                onSuccess={() => {}}
+                onAfterRender={() => {}}
+                onFailure={() => {}}
+              />
+            </div>
+{/**************************** Instagram Sidebar 8*************************************/}
+        
       </div>
     </div>
   );

@@ -56,8 +56,9 @@ function Post(props) {
                 <p><span>{props.user}</span>{props.caption}</p>
             </div>
 
-            <CommentsList key={props.id} id={props.id} comments={props.comments}/>
-
+                {   props.comments ? 
+                    (<CommentsList key={props.id} id={props.id} comments={props.comments}/>) : ""
+                }
             <div className="post_commentform">
                 <form onSubmit={handleCommentSubmit}>
                     <input value={commentForm} onChange={setCommentForm} type="text" placeholder="Add a comment..."/>
