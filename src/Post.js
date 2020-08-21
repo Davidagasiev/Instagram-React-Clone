@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Post.css";
 import CommentsList from "./CommentsList";
+import useInput from "./Hooks/useInput";
 
 import { Avatar } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -12,6 +13,13 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 
 function Post(props) {
+
+    const [commentForm, setCommentForm, resetCommentForm] = useInput("");
+
+    function handleCommentSubmit(e) {
+        e.preventDefault();
+    }
+
     return (
         <div className="Post">
 
@@ -51,9 +59,14 @@ function Post(props) {
             <CommentsList key={props.id} id={props.id} comments={props.comments}/>
 
             <div className="post_commentform">
-                <form>
-                    <input type="text" placeholder="Add a comment..."/>
-                    <button>Post</button>
+                <form onSubmit={handleCommentSubmit}>
+                    <input value={commentForm} onChange={setCommentForm} type="text" placeholder="Add a comment..."/>
+                    {commentForm.length !== 0 ? 
+                        (<button>Post</button>)
+                        :
+                        (<button disabled>Post</button>)
+                    }
+
                 </form>
             </div>
             
