@@ -3,7 +3,6 @@ import "./App.css";
 import Post from "./Post";
 import {db, auth} from "./firebase";
 import useInput from "./Hooks/useInput";
-import useToggle from "./Hooks/useToggle";
 
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -90,6 +89,11 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
     setOpen(false);
     resetHandleLogInEmailChange();
     resetHandleLogInPassChange();
+
+  // Signing In
+    auth
+    .signInWithEmailAndPassword(handleLogInEmailChange, handleLogInPassChange)
+    .catch((error) => alert(error.message));
   }
 
 
@@ -102,7 +106,7 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
     resetHandleSignUpPassChange();
 
 
-
+    // Signing Up
     auth
     .createUserWithEmailAndPassword(handleSignUpEmailChange, handleSignUpPassChange)
     .then((authUser) => {
@@ -185,9 +189,9 @@ const whenLoggedOut = (
               >
               <Fade in={open}>
                 <div className={classes.paper}>
-                  <form  className="userAuth">
+                  <form onSubmit={handleLogInSubmit} className="userAuth">
                     <h1>Log In</h1>
-                    <TextField type="email" onSubmit={handleLogInSubmit} required value={handleLogInEmailChange} onChange={setHandleLogInEmailChange} style={{marginTop: "15px", marginBottom: "10px"}} label="Email" />
+                    <TextField type="email"  required value={handleLogInEmailChange} onChange={setHandleLogInEmailChange} style={{marginTop: "15px", marginBottom: "10px"}} label="Email" />
                     <TextField type="password" required value={handleLogInPassChange} onChange={setHandleLogInPassChange} style={{marginTop: "5px", marginBottom: "25px"}} label="Password" />
                    <button style={{backgroundColor: "transparent", border: "none", outline: "none"}}>
                      <Button style={{width: "100%"}} variant="contained" color="primary">Log In</Button>
