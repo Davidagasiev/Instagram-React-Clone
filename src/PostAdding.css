@@ -8,9 +8,11 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
 }
 
-.PostAdding button, .PostAdding input{
+.PostAdding button, .PostAdding input, .PostAdding label{
     margin-top: 10px;
     margin-bottom: 10px;
+    width: 100%;
 }

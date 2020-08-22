@@ -253,7 +253,7 @@ const whenLoggedIn = (
     {/********************************* Post Adding Modal ****************************************************/}
 
               <Modal
-              
+                style={{minWidth: "200px", minHeight: "200px"}}
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"
                 className={classes.modal}
