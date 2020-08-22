@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./Navbar.css";
 import {auth} from "./firebase";
 import useInput from "./Hooks/useInput";
+import PostAdding from "./PostAdding";
 
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -98,7 +99,7 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
     .createUserWithEmailAndPassword(handleSignUpEmailChange, handleSignUpPassChange)
     .then((authUser) => {
       return authUser.user.updateProfile({
-        displayName: handleSignUpUserChange
+        displayName: handleSignUpUserChange.split(' ').join('')
       })
     })
     .catch(error => alert(error.message));
@@ -111,7 +112,6 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if(authUser) {
         //If User Logged In...
-        console.log(authUser);
         setUser(authUser);
       }else{
         //If User Logges Out...
@@ -230,8 +230,52 @@ const whenLoggedOut = (
 </div>
 );
 // For Log Out Button
+
+const handlePostAddingClose = () => {
+  setAnchorEl(null);
+  setPostAdding(false);
+};
+
+const [postAddingOpen, setPostAdding] = React.useState(false);
+
+const handlePostAddingModalOpen = () => {
+  setPostAdding(true);
+};
+
+function handlePostAdding() {
+  handleClose();
+  handlePostAddingModalOpen();
+}
+
 const whenLoggedIn = (
-  <MenuItem onClick={() => auth.signOut() }>Log Out</MenuItem>
+  <div>
+    <MenuItem onClick={handlePostAdding}>Create Post</MenuItem>
+    {/********************************* Post Adding Modal ****************************************************/}
+
+              <Modal
+              
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={postAddingOpen}
+                onClose={handlePostAddingClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+              <Fade in={postAddingOpen}>
+                <div className={classes.paper}>
+                  <PostAdding closeModal={setPostAdding}/>
+                </div>
+              </Fade>
+            </Modal>
+
+
+{/********************************* Post Adding Modal ****************************************************/}
+    <MenuItem onClick={() => auth.signOut() }>Log Out</MenuItem>
+  </div>
 );
 
   return (

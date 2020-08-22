@@ -1,0 +1,16 @@
+.PostAdding{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.PostAdding form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.PostAdding button, .PostAdding input{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

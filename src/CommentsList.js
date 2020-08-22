@@ -6,7 +6,7 @@ import {v4 as uuid} from "uuid";
 
 function CommentsList(props) {
     const [showComments, setShowComments] = useToggle(false);
-    const comments = eval(props.comments);
+    const comments = JSON.parse(props.comments);
     return (
         <div className="CommentsList">
             {!showComments ?
@@ -14,7 +14,7 @@ function CommentsList(props) {
                 :
                 (<>
                     <ul>
-                        {comments.map(comment => (<li key={uuid()} style={{margin: "15px 0"}}><p>
+                        {comments.map(comment => (<li key={uuid()} style={{margin: "15px 0"}}><p style={{wordBreak: "break-word"}}>
                             <span>{comment.user}</span>
                             {comment.comment}
                         </p></li>))

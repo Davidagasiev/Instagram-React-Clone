@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Post.css";
 import CommentsList from "./CommentsList";
 import useInput from "./Hooks/useInput";
+import {db, auth} from "./firebase";
 
 import { Avatar } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -12,12 +13,37 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 
+import TextField from '@material-ui/core/TextField';
+
+
+
+
 function Post(props) {
 
     const [commentForm, setCommentForm, resetCommentForm] = useInput("");
 
+
     function handleCommentSubmit(e) {
         e.preventDefault();
+        if(!auth.currentUser) {
+            alert("You are not logged in.")
+        }else{
+        const evalComments = JSON.parse(props.comments),
+        newComments = [...evalComments, {user: auth.currentUser.displayName, comment: commentForm}]
+        db.collection("posts").doc(props.id).set({
+                caption: props.caption,
+                imageUrl: props.imageUrl,
+                likes: props.likes,
+                user: props.user,
+                comments: JSON.stringify(newComments)
+            })
+            .then(function() {
+                console.log("Comments was successfully added to post " + props.id);
+            })
+            .catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
+        resetCommentForm();}
     }
 
     return (
@@ -61,13 +87,18 @@ function Post(props) {
                 }
             <div className="post_commentform">
                 <form onSubmit={handleCommentSubmit}>
-                    <input value={commentForm} onChange={setCommentForm} type="text" placeholder="Add a comment..."/>
+                    <TextField 
+                    style={{width: "100%"}}
+                    value={commentForm} 
+                    onChange={setCommentForm} 
+                    type="text" 
+                    multiline
+                    placeholder="Add a comment..."/>
                     {commentForm.length !== 0 ? 
                         (<button>Post</button>)
                         :
                         (<button disabled>Post</button>)
                     }
-
                 </form>
             </div>
             

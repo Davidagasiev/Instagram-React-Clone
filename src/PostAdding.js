@@ -1,4 +1,5 @@
 import React from "react";
+import "./PostAdding.css";
 import useInput from "./Hooks/useInput";
 import useToggle from "./Hooks/useToggle";
 import {db, auth} from "./firebase";
@@ -37,7 +38,8 @@ function PostAdding(props) {
             caption,
             imageUrl: urlInput,
             likes: 0,
-            user: auth.currentUser.displayName
+            user: auth.currentUser.displayName,
+            comments: "[]"
         })
         .then(function(docRef) {
             console.log("Document written with ID: ", docRef.id);
@@ -47,6 +49,7 @@ function PostAdding(props) {
         });
         resetCaption();
         resetUrlInput();
+        props.closeModal(false);
     }
 
     return (
@@ -75,7 +78,7 @@ function PostAdding(props) {
                 {showUrlInput ?
                     <TextField
                     id="outlined-multiline-static"
-                    label="Caption"
+                    label="Image URL"
                     value={urlInput}
                     onChange={setUrlInput}
                     variant="outlined"

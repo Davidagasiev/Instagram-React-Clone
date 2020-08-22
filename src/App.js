@@ -3,7 +3,6 @@ import "./App.css";
 import {db} from "./firebase";
 import Navbar from "./Navbar";
 import PostList from "./PostList";
-import PostAdding from "./PostAdding";
 
 import InstagramEmbed from 'react-instagram-embed';
 
@@ -55,7 +54,6 @@ function App() {
             </div>
 {/**************************** Instagram Sidebar 8*************************************/}
       </div>
-      <PostAdding />
     </div>
   );
 }
