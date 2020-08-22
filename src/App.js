@@ -3,6 +3,7 @@ import "./App.css";
 import {db} from "./firebase";
 import Navbar from "./Navbar";
 import PostList from "./PostList";
+import PostAdding from "./PostAdding";
 
 import InstagramEmbed from 'react-instagram-embed';
 
@@ -21,7 +22,6 @@ function App() {
       })
   }, [])
 
-
   return (
     <div className="App">
 
@@ -30,6 +30,7 @@ function App() {
     {/* Navbar */}
 
       <div className="container">
+
           {/* Post List */}
             <PostList posts={posts} />
           {/* Post List */}
@@ -37,21 +38,24 @@ function App() {
 
 {/**************************** Instagram Sidebar 8*************************************/}
             <div className="embed">
-              <InstagramEmbed
-                url='https://www.instagram.com/p/B_9au0YnJok/'
-                maxWidth={400}
-                hideCaption={false}
-                containerTagName='div'
-                protocol=''
-                injectScript
-                onLoading={() => {}}
-                onSuccess={() => {}}
-                onAfterRender={() => {}}
-                onFailure={() => {}}
-              />
+              <div className="embed2">
+                <InstagramEmbed
+                  url='https://www.instagram.com/p/B_9au0YnJok/'
+                  maxWidth={400}
+                  hideCaption={false}
+                  containerTagName='div'
+                  protocol=''
+                  injectScript
+                  onLoading={() => {}}
+                  onSuccess={() => {}}
+                  onAfterRender={() => {}}
+                  onFailure={() => {}}
+                />
+              </div>
             </div>
 {/**************************** Instagram Sidebar 8*************************************/}
       </div>
+      <PostAdding />
     </div>
   );
 }

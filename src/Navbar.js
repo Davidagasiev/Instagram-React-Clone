@@ -159,7 +159,7 @@ const handleSignInModalClose = () => {
 
 
 const whenLoggedOut = (
-  <>
+<div>
   <MenuItem onClick={handleLogIn}>Log In</MenuItem>
 
               <Modal
@@ -227,7 +227,7 @@ const whenLoggedOut = (
 
 
 {/********************************* Sign Up Modal ****************************************************/}
-</>
+</div>
 );
 // For Log Out Button
 const whenLoggedIn = (
