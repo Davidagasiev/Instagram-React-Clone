@@ -1,0 +1,38 @@
+.nav_container{
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Navbar */
+
+.app_nav{
+    background-color: white;
+    border-bottom: 1px solid lightgrey;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.nav_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:white;
+}
+
+.app_navicon img{
+    padding: 15px 0 5px 15px;
+    object-fit: contain;
+}
+
+/* Navbar */
+
+
+/* Modal */
+.userAuth{
+    display: flex;
+    flex-direction: column;
+}
+/* Modal */
