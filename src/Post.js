@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Post.css";
 import CommentsList from "./CommentsList";
 import useInput from "./Hooks/useInput";
@@ -46,6 +46,45 @@ function Post(props) {
         resetCommentForm();}
     }
 
+
+    // **************************Like Adding******************************************
+    const [liked, setLiked] = useState(JSON.parse(props.likes).some(i => {
+        return i === (auth.currentUser ? auth.currentUser.email : "");
+    }));
+
+    useEffect(() => {
+        setLiked(JSON.parse(props.likes).some(i => {
+            return i === (auth.currentUser ? auth.currentUser.email : "");
+        }))
+    })
+
+
+    function likeAdding() {
+
+        if(!auth.currentUser) {
+            alert("You are not logged in.")
+        }else{
+        const currentLikes = JSON.parse(props.likes),
+        newLikes = liked ? [...currentLikes].filter(i => i !== auth.currentUser.email) : [...currentLikes, auth.currentUser.email];
+        db.collection("posts").doc(props.id).set({
+                caption: props.caption,
+                imageUrl: props.imageUrl,
+                likes: JSON.stringify(newLikes),
+                user: props.user,
+                comments: props.comments
+            })
+            .then(function() {
+                console.log("Post was successfully liked or unliked" + props.id);
+            })
+            .catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
+        resetCommentForm();}
+        
+    }
+
+    // **************************Like Adding******************************************
+
     return (
         <div className="Post">
 
@@ -59,14 +98,17 @@ function Post(props) {
                 </div>
             </div>
 
-            <div>
+            <div onDoubleClick={likeAdding}>
                 <img alt="Post Photo" src={props.imageUrl}/>
             </div>
 
 
             <div className="post_footer">
                 <div className="post_footerlike">
-                    <FavoriteBorderIcon style={{ fontSize: 30 }}/>
+                    { liked ? 
+                    <FavoriteIcon onClick={likeAdding} style={{ fontSize: 30 }}/>:
+                    <FavoriteBorderIcon onClick={likeAdding} style={{ fontSize: 30 }}/>
+                    }
                 </div>
 
                 <div className="post_footersave">
@@ -74,7 +116,7 @@ function Post(props) {
                 </div>
             </div>
 
-            <span style={{marginBottom: "10px"}}>{props.likes} likes</span>
+            <span style={{marginBottom: "10px"}}>{JSON.parse(props.likes).length} likes</span>
 
 
 
@@ -82,7 +124,7 @@ function Post(props) {
                 <p><span>{props.user}</span>{props.caption}</p>
             </div>
 
-                {   props.comments ? 
+                {   props.comments !== "[]" ? 
                     (<CommentsList key={props.id} id={props.id} comments={props.comments}/>) : ""
                 }
             <div className="post_commentform">

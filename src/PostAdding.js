@@ -65,7 +65,7 @@ function PostAdding(props) {
                     db.collection("posts").add({
                                 caption,
                                 imageUrl: url,
-                                likes: 0,
+                                likes: "[]",
                                 user: auth.currentUser.displayName,
                                 comments: "[]"
                             })
