@@ -4,8 +4,6 @@ import {auth, db} from "./firebase";
 import useInput from "./Hooks/useInput";
 import PostAdding from "./PostAdding";
 
-import { Redirect } from "react-router-dom";
-
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -35,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 // Modal styles
 
 
-function Navbar() {
+function Navbar(props) {
 
 // For Menu
 
@@ -111,6 +109,7 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
         .catch(function(error) {
             console.error("Error adding document: ", error);
         });
+        window.location.reload();
       return authUser.user.updateProfile({
         displayName: handleSignUpUserChange.split(' ').join(''),
         photoURL: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png"
@@ -293,6 +292,18 @@ const whenLoggedIn = (
   </div>
 );
 
+
+
+    // from navbar avatar
+    const [userAvatar, setUserAvatar] = useState({});
+    
+    useEffect(() => {
+        auth.onAuthStateChanged((authUser) => {
+          if(authUser) {
+            setUserAvatar(authUser);
+          }
+        })
+      }, [])
   return (
       
       <nav className="app_nav">
@@ -311,7 +322,7 @@ const whenLoggedIn = (
 
           <div className="app_navextra">
             <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-            <Avatar src="https://us.v-cdn.net/6022045/uploads/defaultavatar.png" />
+            <Avatar src={userAvatar.photoURL}/>
             </Button>
             <Menu
               id="simple-menu"

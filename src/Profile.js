@@ -3,6 +3,7 @@ import { auth, storage } from "./firebase";
 import "./Profile.css";
 import PostGrid from "./PostGrid";
 import useToggle from "./Hooks/useToggle";
+import useInput from './Hooks/useInput';
 
 import { NavLink} from "react-router-dom";
 
@@ -12,7 +13,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -143,6 +144,25 @@ const handleClose = () => {
           console.log(error.message);
         });
       }
+
+// For bio updating
+      const [bioUpdating, setBioUpdating] = useToggle(false);
+      const bioForm = (
+        <form style={{marginTop: "20px"}}>
+          <TextField
+          id="outlined-multiline-static"
+          label="Bio"
+          multiline
+          rows={4}
+          value={"Bio"}
+          variant="outlined"
+        />
+          <Button>Change</Button>
+        </form>
+      )
+
+// For bio updating
+
     return (
         <div className="Profile">
             <div className="profile_info">
@@ -186,7 +206,10 @@ const handleClose = () => {
                     <h1 style={{marginBottom: "10px"}}>{user.displayName}</h1>
                     <Button variant="contained">Edit Profile</Button>
                     <p style={{textAlign: "center"}}><span>{props.posts.length}</span> Posts</p>
-                    <p><span>{user.displayName}</span><br/>{props.users.map(user => user.uid === user.uid ? user.bio : null)}</p>
+                    <span>{user.displayName}</span>
+                  {bioUpdating ? bioForm : 
+                    <p onDoubleClick={setBioUpdating}>This is bio</p>
+                  }
                  </div>
             </div>
             <ul style={{textAlign: "center", borderTop: "1px solid lightgrey", marginTop: "50px"}}>

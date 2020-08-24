@@ -40,7 +40,7 @@ function App() {
       </div> : ""
       }  
     {/* Navbar */}
-      <Navbar />
+      <Navbar users={users} />
     {/* Navbar */}
 
       <div className="container">
