@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import "./Navbar.css";
-import {auth} from "./firebase";
+import {auth, db} from "./firebase";
 import useInput from "./Hooks/useInput";
 import PostAdding from "./PostAdding";
 
@@ -101,7 +101,16 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
     auth
     .createUserWithEmailAndPassword(handleSignUpEmailChange, handleSignUpPassChange)
     .then((authUser) => {
-      window.location.reload();
+          db.collection("users").add({
+            bio: "Here goes your bio. Edit it by double clicking.",
+            uid: authUser.user.uid
+        })
+        .then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
       return authUser.user.updateProfile({
         displayName: handleSignUpUserChange.split(' ').join(''),
         photoURL: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png"

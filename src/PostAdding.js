@@ -4,6 +4,8 @@ import useInput from "./Hooks/useInput";
 import useToggle from "./Hooks/useToggle";
 import {db, auth, storage} from "./firebase";
 
+import {v4 as uuid} from "uuid"
+
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -41,8 +43,8 @@ function PostAdding(props) {
 
 
     function addPost() {
-        
-        const uploadTask = storage.ref(`images/${upload.name}`).put(upload);
+        const newPostId = uuid();
+        const uploadTask = storage.ref(`images/${newPostId}`).put(upload);
 
         uploadTask.on(
             "state_changed",
@@ -55,11 +57,10 @@ function PostAdding(props) {
             },
             (error) => {
                 console.log(error);
-                alert(error.message);
             },
             () => {
                 storage.ref("images")
-                .child(upload.name)
+                .child(newPostId)
                 .getDownloadURL()
                 .then(url => {
                     db.collection("posts").add({

@@ -13,10 +13,12 @@
     font-weight: 600;
 }
 
-.profile_infoavatar img{
+.avatar{
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    background-size: cover;
+    background-position: 50% 50%;
     cursor: pointer;
 }
 

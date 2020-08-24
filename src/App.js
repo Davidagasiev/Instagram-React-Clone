@@ -13,6 +13,8 @@ function App() {
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true);
 
+  const [users, setUsers] = useState([]);
+
   setTimeout(() => setLoading(false), 2500);
 
   useEffect(() =>{
@@ -23,8 +25,13 @@ function App() {
           id: doc.id
           })));
       })
+
+      db.collection("users").onSnapshot(snapshot => {
+        setUsers(snapshot.docs.map(doc => ({
+          ...doc.data()
+          })));
+      })
   }, [])
-  console.log(auth.currentUser);
   return (
     <div className="App">
       {loading ?
@@ -39,8 +46,8 @@ function App() {
       <div className="container">
         <Switch>
           <Route exact path="/" render={() => <Main posts={posts}/> }/>
-          <Route exact path="/profile" render={() => <Profile posts={posts.filter(post => post.data.email === auth.currentUser.email)}/> }/>
-          <Route exact path="/saved" render={() => <SavedPosts posts={posts}/> }/>
+          <Route exact path="/profile" render={() => <Profile users={users} posts={posts.filter(post => post.data.email === auth.currentUser.email)}/> }/>
+          <Route exact path="/profile/saved" render={() => <SavedPosts users={users} posts={posts}/> }/>
           <Route render={() => <Redirect to="/"/> }/>
         </Switch>
           
