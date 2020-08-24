@@ -66,6 +66,7 @@ function PostAdding(props) {
                                 caption,
                                 imageUrl: url,
                                 likes: "[]",
+                                saved: "[]",
                                 user: auth.currentUser.displayName,
                                 comments: "[]",
                                 email: auth.currentUser.email

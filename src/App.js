@@ -24,6 +24,7 @@ function App() {
           })));
       })
   }, [])
+  console.log(auth.currentUser);
   return (
     <div className="App">
       {loading ?

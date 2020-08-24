@@ -35,6 +35,7 @@ function Post(props) {
                 imageUrl: props.imageUrl,
                 likes: props.likes,
                 user: props.user,
+                saved: props.saved,
                 comments: JSON.stringify(newComments)
             })
             .then(function() {
@@ -70,6 +71,7 @@ function Post(props) {
                 caption: props.caption,
                 imageUrl: props.imageUrl,
                 likes: JSON.stringify(newLikes),
+                saved: props.saved,
                 user: props.user,
                 comments: props.comments,
                 email: props.email
@@ -85,6 +87,47 @@ function Post(props) {
     }
 
     // **************************Like Adding******************************************
+
+    // **************************Saving******************************************
+        const [saved, setSaved] = useState(JSON.parse(props.saved).some(i => {
+            return i === (auth.currentUser ? auth.currentUser.email : "");
+        }));
+    
+        useEffect(() => {
+            setSaved(JSON.parse(props.saved).some(i => {
+                return i === (auth.currentUser ? auth.currentUser.email : "");
+            }))
+        })
+    
+    
+        function saving() {
+    
+            if(!auth.currentUser) {
+                alert("You are not logged in.")
+            }else{
+            const currentSaved = JSON.parse(props.saved),
+            newSaved = saved ? [...currentSaved].filter(i => i !== auth.currentUser.email) : [...currentSaved, auth.currentUser.email];
+            db.collection("posts").doc(props.id).set({
+                    caption: props.caption,
+                    imageUrl: props.imageUrl,
+                    likes: props.likes,
+                    saved: JSON.stringify(newSaved),
+                    user: props.user,
+                    comments: props.comments,
+                    email: props.email
+                })
+                .then(function() {
+                    console.log("Post was successfully Saved or Unsaved" + props.id);
+                })
+                .catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+            resetCommentForm();}
+            
+        }
+    
+    // **************************Saving******************************************
+    
 
     return (
         <div className="Post">
@@ -113,7 +156,11 @@ function Post(props) {
                 </div>
 
                 <div className="post_footersave">
-                    <BookmarkBorderIcon style={{ fontSize: 30, cursor:"pointer" }}/>
+                    { !saved ? 
+                        <BookmarkBorderIcon onClick={saving} style={{ fontSize: 30, cursor:"pointer" }}/>:
+                        <BookmarkIcon onClick={saving} style={{ fontSize: 30, cursor:"pointer" }}/>
+                    }
+                    
                 </div>
             </div>
 

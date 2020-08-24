@@ -39,7 +39,7 @@ function Profile(props) {
             </ul>
 
             {/* Posts */}
-              <PostGrid posts={props.posts}/>
+              <PostGrid posts={props.posts.filter(post => post.data.email === auth.currentUser.email)}/>
             {/* Posts */}
         </div>
     )

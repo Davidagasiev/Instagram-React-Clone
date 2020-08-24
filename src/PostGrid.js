@@ -5,7 +5,7 @@ function PostGrid(props) {
     return (
         <div className="postgrid">
 
-              {props.posts.map(post => (<div className="gridItem"><img src={post.data.imageUrl}/></div>))}
+              {props.posts.map(post => (<div className="gridItem"><img src={post.data.imageUrl} alt="Post"/></div>))}
 
         </div>
     )
