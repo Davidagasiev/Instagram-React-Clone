@@ -67,7 +67,8 @@ function PostAdding(props) {
                                 imageUrl: url,
                                 likes: "[]",
                                 user: auth.currentUser.displayName,
-                                comments: "[]"
+                                comments: "[]",
+                                email: auth.currentUser.email
                             })
                             .then(function(docRef) {
                                 console.log("Document written with ID: ", docRef.id);

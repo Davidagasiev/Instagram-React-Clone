@@ -46,3 +46,39 @@ a{
         justify-content: center;
     }
 }
+
+/* Loading Screen */
+.loadingScreen{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10000;
+    background-color:#fafafa;
+    animation-name: loadingScreen;
+    animation-duration: 2.5s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@keyframes loadingScreen{
+	0%{
+		opacity: 1;
+    }
+    70%{
+        opacity: 1;
+    }
+	100%{
+		opacity: 0;
+	}
+}
+
+.loadingScreen img{
+    width: 70px;
+    height: 70px;
+}
+
+/* Loading Screen */

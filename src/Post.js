@@ -71,7 +71,8 @@ function Post(props) {
                 imageUrl: props.imageUrl,
                 likes: JSON.stringify(newLikes),
                 user: props.user,
-                comments: props.comments
+                comments: props.comments,
+                email: props.email
             })
             .then(function() {
                 console.log("Post was successfully liked or unliked" + props.id);
@@ -90,11 +91,11 @@ function Post(props) {
 
             <div className="post_header">
                 <div className="post_userinfo">
-                    <Avatar>{(props.user + "")[0]}</Avatar>
-                    <span>{props.user}</span>
+                    <Avatar style={{cursor:"pointer"}}>{(props.user + "")[0]}</Avatar>
+                    <span style={{cursor:"pointer"}}>{props.user}</span>
                 </div>
                 <div className="post_more">
-                    <MoreHorizIcon />
+                    <MoreHorizIcon style={{cursor:"pointer"}} />
                 </div>
             </div>
 
@@ -106,13 +107,13 @@ function Post(props) {
             <div className="post_footer">
                 <div className="post_footerlike">
                     { liked ? 
-                    <FavoriteIcon onClick={likeAdding} style={{ fontSize: 30 }}/>:
-                    <FavoriteBorderIcon onClick={likeAdding} style={{ fontSize: 30 }}/>
+                    <FavoriteIcon onClick={likeAdding} style={{ fontSize: 30, cursor: "pointer" }}/>:
+                    <FavoriteBorderIcon onClick={likeAdding} style={{ fontSize: 30, cursor:"pointer"}}/>
                     }
                 </div>
 
                 <div className="post_footersave">
-                    <BookmarkBorderIcon style={{ fontSize: 30 }}/>
+                    <BookmarkBorderIcon style={{ fontSize: 30, cursor:"pointer" }}/>
                 </div>
             </div>
 
@@ -137,7 +138,7 @@ function Post(props) {
                     multiline
                     placeholder="Add a comment..."/>
                     {commentForm.length !== 0 ? 
-                        (<button>Post</button>)
+                        (<button style={{cursor:"pointer"}}>Post</button>)
                         :
                         (<button disabled>Post</button>)
                     }

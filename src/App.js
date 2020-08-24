@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import "./App.css";
-import {db} from "./firebase";
+import {db, auth} from "./firebase";
 import Navbar from "./Navbar";
-import PostList from "./PostList";
+import Main from "./Main";
+import Profile from "./Profile";
+import SavedPosts from "./SavedPosts";
 
-import InstagramEmbed from 'react-instagram-embed';
+import { Route, Switch, Redirect } from "react-router-dom";
 
 function App() {
 
   const [posts, setPosts] = useState([])
+  const [loading, setLoading] = useState(true);
 
+  setTimeout(() => setLoading(false), 2500);
 
   useEffect(() =>{
     //This is how to get info from firebase
@@ -20,41 +24,29 @@ function App() {
           })));
       })
   }, [])
-
   return (
     <div className="App">
-
+      {loading ?
+      <div className="loadingScreen">
+        <img src="https://www.freepnglogos.com/uploads/instagram-logo-png-transparent-0.png" alt="Instagram Logo"/>
+      </div> : ""
+      }  
     {/* Navbar */}
       <Navbar />
     {/* Navbar */}
 
       <div className="container">
+        <Switch>
+          <Route exact path="/" render={() => <Main posts={posts}/> }/>
+          <Route exact path="/profile" render={() => <Profile posts={posts.filter(post => post.data.email === auth.currentUser.email)}/> }/>
+          <Route exact path="/saved" render={() => <SavedPosts posts={posts}/> }/>
+          <Route render={() => <Redirect to="/"/> }/>
+        </Switch>
+          
 
-          {/* Post List */}
-            <PostList posts={posts} />
-          {/* Post List */}
-
-
-{/**************************** Instagram Sidebar 8*************************************/}
-            <div className="embed">
-              <div className="embed2">
-                <InstagramEmbed
-                  url='https://www.instagram.com/p/B_9au0YnJok/'
-                  maxWidth={400}
-                  hideCaption={false}
-                  containerTagName='div'
-                  protocol=''
-                  injectScript
-                  onLoading={() => {}}
-                  onSuccess={() => {}}
-                  onAfterRender={() => {}}
-                  onFailure={() => {}}
-                />
-              </div>
-            </div>
-{/**************************** Instagram Sidebar 8*************************************/}
       </div>
-    </div>
+  </div>
+    
   );
 }
 

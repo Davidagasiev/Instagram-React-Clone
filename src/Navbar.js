@@ -4,6 +4,8 @@ import {auth} from "./firebase";
 import useInput from "./Hooks/useInput";
 import PostAdding from "./PostAdding";
 
+import { Redirect } from "react-router-dom";
+
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -81,6 +83,7 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
   // Signing In
     auth
     .signInWithEmailAndPassword(handleLogInEmailChange, handleLogInPassChange)
+    .then(() => window.location.reload())
     .catch((error) => alert(error.message));
   }
 
@@ -98,8 +101,10 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
     auth
     .createUserWithEmailAndPassword(handleSignUpEmailChange, handleSignUpPassChange)
     .then((authUser) => {
+      window.location.reload();
       return authUser.user.updateProfile({
-        displayName: handleSignUpUserChange.split(' ').join('')
+        displayName: handleSignUpUserChange.split(' ').join(''),
+        photoURL: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png"
       })
     })
     .catch(error => alert(error.message));
@@ -249,6 +254,7 @@ function handlePostAdding() {
 
 const whenLoggedIn = (
   <div>
+    <MenuItem ><a style={{color: "black"}} href="/profile">My Profile</a></MenuItem>
     <MenuItem onClick={handlePostAdding}>Create Post</MenuItem>
     {/********************************* Post Adding Modal ****************************************************/}
 
@@ -274,7 +280,7 @@ const whenLoggedIn = (
 
 
 {/********************************* Post Adding Modal ****************************************************/}
-    <MenuItem onClick={() => auth.signOut() }>Log Out</MenuItem>
+    <MenuItem onClick={() => {auth.signOut(); window.location.reload()} }>Log Out</MenuItem>
   </div>
 );
 
@@ -285,7 +291,9 @@ const whenLoggedIn = (
         {/* Icon Div */}
 
           <div className="app_navicon">
-            <img  alt="Instagram Icon" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"/>
+            <a href="/">
+              <img style={{cursor:"pointer"}} alt="Instagram Icon" src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"/>
+            </a>
           </div>
 
         {/* Icon Div */}
