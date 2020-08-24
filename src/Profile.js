@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "./firebase";
 import "./Profile.css";
+import PostGrid from "./PostGrid";
 
 import { NavLink} from "react-router-dom";
 
@@ -37,12 +38,9 @@ function Profile(props) {
                 <NavLink className="ulLink" exact to="/saved" activeClassName="activeLink" >Saved</NavLink>
             </ul>
 
-            <div className="postgrid">
-
-              {props.posts.map(post => (<div className="gridItem"><img src={post.data.imageUrl}/></div>))}
-
-            </div>
-
+            {/* Posts */}
+              <PostGrid posts={props.posts}/>
+            {/* Posts */}
         </div>
     )
 }
