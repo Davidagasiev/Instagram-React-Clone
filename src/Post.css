@@ -14,7 +14,8 @@
     width: 100%;
     object-fit: contain;
     border-bottom: 1px solid lightgrey;
-    border-top: 1px solid lightgrey
+    border-top: 1px solid lightgrey;
+    user-select: none;
 }
 
 .post_header, .post_footer{

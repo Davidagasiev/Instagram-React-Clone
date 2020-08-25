@@ -37,7 +37,8 @@ function Post(props) {
                 likes: props.likes,
                 user: props.user,
                 saved: props.saved,
-                comments: JSON.stringify(newComments)
+                comments: JSON.stringify(newComments),
+                email: props.email
             })
             .then(function() {
                 console.log("Comments was successfully added to post " + props.id);
