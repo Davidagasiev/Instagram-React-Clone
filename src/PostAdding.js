@@ -9,7 +9,6 @@ import {v4 as uuid} from "uuid"
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 

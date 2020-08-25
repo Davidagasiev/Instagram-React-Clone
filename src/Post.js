@@ -59,7 +59,7 @@ function Post(props) {
         setLiked(JSON.parse(props.likes).some(i => {
             return i === (auth.currentUser ? auth.currentUser.email : "");
         }))
-    })
+    }, [props.likes])
 
 
     function likeAdding() {
@@ -100,7 +100,7 @@ function Post(props) {
             setSaved(JSON.parse(props.saved).some(i => {
                 return i === (auth.currentUser ? auth.currentUser.email : "");
             }))
-        })
+        },[props.saved])
     
     
         function saving() {
@@ -147,7 +147,7 @@ function Post(props) {
             </div>
 
             <div onDoubleClick={likeAdding}>
-                <img alt="Post Photo" src={props.imageUrl}/>
+                <img alt="Post" src={props.imageUrl}/>
             </div>
 
 

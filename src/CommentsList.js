@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import "./CommentsList.css";
 import useToggle from "./Hooks/useToggle";
 

@@ -227,7 +227,7 @@ const handleClose = () => {
                  <div className="profile_infotext">
                     <h1 style={{marginBottom: "10px"}}>{user.displayName}</h1>
                     <Button variant="contained">Edit Profile</Button>
-                    <p style={{textAlign: "center"}}><span>{props.posts.length}</span> Posts</p>
+                    <p style={{textAlign: "center"}}><span>{props.posts.filter(post => post.data.email === auth.currentUser.email).length}</span> Posts</p>
                     <span>{user.displayName}</span>
                   {bioUpdating ? bioForm : 
                     <p onDoubleClick={setBioUpdating}></p>
