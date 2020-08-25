@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { auth, storage } from "./firebase";
+import { auth, storage, db } from "./firebase";
 import "./Profile.css";
 import PostGrid from "./PostGrid";
 import useToggle from "./Hooks/useToggle";
@@ -94,13 +94,35 @@ const handleClose = () => {
                 .child(upload.name)
                 .getDownloadURL()
                 .then(url => {
-                   
+
                   var user = auth.currentUser;
 
                   user.updateProfile({
                     photoURL: url
                   }).then(function() {
                     // Update successful.
+                    const myPosts = props.posts.filter(post => post.data.email === auth.currentUser.email);
+                      myPosts.forEach(post => {
+                        if(post.data.userPhoto !== url){
+                          // To update UserPhoto
+                          db.collection("posts").doc(post.id).set({
+                            caption: post.data.caption,
+                            imageUrl: post.data.imageUrl,
+                            likes: post.data.likes,
+                            saved: post.data.saved,
+                            user: post.data.user,
+                            userPhoto: url,
+                            comments: post.data.comments,
+                            email: post.data.email
+                          })
+                          .then(function() {
+                              console.log("Document successfully written!");
+                          })
+                          .catch(function(error) {
+                              console.error("Error writing document: ", error);
+                          });
+                        }
+                      });
                     console.log("Photo was updated successfully");
                   }).catch(function(error) {
                     // An error happened.
@@ -208,7 +230,7 @@ const handleClose = () => {
                     <p style={{textAlign: "center"}}><span>{props.posts.length}</span> Posts</p>
                     <span>{user.displayName}</span>
                   {bioUpdating ? bioForm : 
-                    <p onDoubleClick={setBioUpdating}>This is bio</p>
+                    <p onDoubleClick={setBioUpdating}></p>
                   }
                  </div>
             </div>

@@ -39,6 +39,10 @@
     margin: 5px;
 }
 
+.post_userinfo img{
+    object-fit: cover;
+}
+
 
 .post_more{
     padding-right: 10px;

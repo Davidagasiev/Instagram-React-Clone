@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { auth, storage } from "./firebase";
+import { auth, storage, db } from "./firebase";
 import "./Profile.css";
 import PostGrid from "./PostGrid";
 import useToggle from "./Hooks/useToggle";
+import useInput from './Hooks/useInput';
 
 import { NavLink} from "react-router-dom";
 
@@ -12,7 +13,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -93,13 +94,35 @@ const handleClose = () => {
                 .child(upload.name)
                 .getDownloadURL()
                 .then(url => {
-                   
+
                   var user = auth.currentUser;
 
                   user.updateProfile({
                     photoURL: url
                   }).then(function() {
                     // Update successful.
+                    const myPosts = props.posts.filter(post => post.data.email === auth.currentUser.email);
+                      myPosts.forEach(post => {
+                        if(post.data.userPhoto !== url){
+                          // To update UserPhoto
+                          db.collection("posts").doc(post.id).set({
+                            caption: post.data.caption,
+                            imageUrl: post.data.imageUrl,
+                            likes: post.data.likes,
+                            saved: post.data.saved,
+                            user: post.data.user,
+                            userPhoto: url,
+                            comments: post.data.comments,
+                            email: post.data.email
+                          })
+                          .then(function() {
+                              console.log("Document successfully written!");
+                          })
+                          .catch(function(error) {
+                              console.error("Error writing document: ", error);
+                          });
+                        }
+                      });
                     console.log("Photo was updated successfully");
                   }).catch(function(error) {
                     // An error happened.
@@ -143,6 +166,25 @@ const handleClose = () => {
           console.log(error.message);
         });
       }
+
+// For bio updating
+      const [bioUpdating, setBioUpdating] = useToggle(false);
+      const bioForm = (
+        <form style={{marginTop: "20px"}}>
+          <TextField
+          id="outlined-multiline-static"
+          label="Bio"
+          multiline
+          rows={4}
+          value={"Bio"}
+          variant="outlined"
+        />
+          <Button>Change</Button>
+        </form>
+      )
+
+// For bio updating
+
     return (
         <div className="Profile">
             <div className="profile_info">
@@ -186,7 +228,10 @@ const handleClose = () => {
                     <h1 style={{marginBottom: "10px"}}>{user.displayName}</h1>
                     <Button variant="contained">Edit Profile</Button>
                     <p style={{textAlign: "center"}}><span>{props.posts.length}</span> Posts</p>
-                    <p><span>{user.displayName}</span><br/>{props.users.map(users => users.uid === user.uid ? users.bio : null)}</p>
+                    <span>{user.displayName}</span>
+                  {bioUpdating ? bioForm : 
+                    <p onDoubleClick={setBioUpdating}></p>
+                  }
                  </div>
             </div>
             <ul style={{textAlign: "center", borderTop: "1px solid lightgrey", marginTop: "50px"}}>
@@ -198,11 +243,9 @@ const handleClose = () => {
             <PostGrid posts={props.posts.filter(post => JSON.parse(post.data.saved).some(i => {
           return i === (auth.currentUser ? auth.currentUser.email : "")}))} />
             {/* Saved Posts */}
-
         </div>
     )
 }
-
 
 export default SavedPosts;
 

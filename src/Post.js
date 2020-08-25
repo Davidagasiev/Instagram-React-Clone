@@ -33,6 +33,7 @@ function Post(props) {
         db.collection("posts").doc(props.id).set({
                 caption: props.caption,
                 imageUrl: props.imageUrl,
+                userPhoto: props.userPhoto,
                 likes: props.likes,
                 user: props.user,
                 saved: props.saved,
@@ -73,6 +74,7 @@ function Post(props) {
                 likes: JSON.stringify(newLikes),
                 saved: props.saved,
                 user: props.user,
+                userPhoto: props.userPhoto,
                 comments: props.comments,
                 email: props.email
             })
@@ -113,6 +115,7 @@ function Post(props) {
                     likes: props.likes,
                     saved: JSON.stringify(newSaved),
                     user: props.user,
+                    userPhoto: props.userPhoto,
                     comments: props.comments,
                     email: props.email
                 })
@@ -134,7 +137,7 @@ function Post(props) {
 
             <div className="post_header">
                 <div className="post_userinfo">
-                    <Avatar style={{cursor:"pointer"}}>{(props.user + "")[0]}</Avatar>
+                    <Avatar style={{cursor:"pointer"}} src={props.userPhoto}>{(props.user + "")[0]}</Avatar>
                     <span style={{cursor:"pointer"}}>{props.user}</span>
                 </div>
                 <div className="post_more">
