@@ -113,7 +113,8 @@ const handleClose = () => {
                             user: post.data.user,
                             userPhoto: url,
                             comments: post.data.comments,
-                            email: post.data.email
+                            email: post.data.email,
+                            date: post.data.date
                           })
                           .then(function() {
                               console.log("Document successfully written!");

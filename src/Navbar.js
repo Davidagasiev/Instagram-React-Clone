@@ -79,14 +79,17 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
 
   function handleLogInSubmit(e) {
     e.preventDefault();
-    setOpen(false);
-    resetHandleLogInEmailChange();
-    resetHandleLogInPassChange();
 
   // Signing In
     auth
     .signInWithEmailAndPassword(handleLogInEmailChange, handleLogInPassChange)
-    .then(() => window.location.reload())
+    .then(() => {
+      
+      setOpen(false);
+      resetHandleLogInEmailChange();
+      resetHandleLogInPassChange();
+      window.location.reload();
+    })
     .catch((error) => alert(error.message));
   }
 
@@ -94,10 +97,7 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
 
   function handleSignUpSubmit(e) {
     e.preventDefault();
-    setSignUpOpen(false);
-    resetHandleSignUpUserChange();
-    resetHandleSignUpEmailChange();
-    resetHandleSignUpPassChange();
+    
 
 
     // Signing Up
@@ -114,7 +114,13 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
       .catch(function(error) {
           console.error("Error adding document: ", error);
       });
-       
+
+
+        setSignUpOpen(false);
+        resetHandleSignUpUserChange();
+        resetHandleSignUpEmailChange();
+        resetHandleSignUpPassChange();
+        setTimeout(() => window.location.reload(), 1000) ;
       return authUser.user.updateProfile({
         displayName: handleSignUpUserChange.split(' ').join(''),
         photoURL: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png"
@@ -122,7 +128,7 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
       })
     })
     .catch(error => alert(error.message));
-     setTimeout(() => window.location.reload(), 1000) ;
+     
   }
 
   const [user, setUser] = useState(null);
