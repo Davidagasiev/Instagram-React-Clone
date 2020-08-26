@@ -48,8 +48,21 @@ function App() {
         setUsers(snapshot.docs.map(doc => ({
           ...doc.data()
           })));
+        
       })
   }, [])
+
+//For bio
+const [bio, setBio] = useState("");
+
+useEffect(() => {
+        if(auth.currentUser){
+          Array.prototype.forEach.call(users, user => {
+            if(user.uid === auth.currentUser.uid) setBio(user.bio);
+          })
+        }
+  }, [users])
+//For bio
 
   return (
     <div className="App">
@@ -59,14 +72,30 @@ function App() {
       </div> : ""
       }  
     {/* Navbar */}
-      <Navbar users={users} />
+      <Navbar setBio={setBio} users={users} />
     {/* Navbar */}
 
       <div className="container">
         <Switch>
-          <Route exact path="/" render={() => <Main bubbleSort={bubbleSort} posts={posts}/> }/>
-          <Route exact path="/profile" render={() => <Profile bubbleSort={bubbleSort} users={users} posts={posts.filter(post => post.data.email === auth.currentUser.email)}/> }/>
-          <Route exact path="/profile/saved" render={() => <SavedPosts bubbleSort={bubbleSort} users={users} posts={posts}/> }/>
+
+          <Route exact path="/" render={() => <Main 
+            bubbleSort={bubbleSort} 
+            posts={posts}/> }
+          />
+          <Route exact path="/profile" render={() => <Profile 
+            bio={bio} 
+            bubbleSort={bubbleSort} 
+            users={users} 
+            posts={posts.filter(post => post.data.email === auth.currentUser.email)}/> }
+          />
+
+          <Route exact path="/profile/saved" render={() => <SavedPosts 
+            bio={bio} 
+            bubbleSort={bubbleSort} 
+            users={users} 
+            posts={posts}/> } 
+          />
+
           <Route render={() => <Redirect to="/"/> }/>
         </Switch>
           

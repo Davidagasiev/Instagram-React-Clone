@@ -99,24 +99,25 @@ const [handleSignUpPassChange, setHandleSignUpPassChange, resetHandleSignUpPassC
     auth
     .createUserWithEmailAndPassword(handleSignUpEmailChange, handleSignUpPassChange)
     .then((authUser) => {
-          db.collection("users").add({
-            bio: "Here goes your bio. Edit it by double clicking.",
-            uid: authUser.user.uid
-        })
-        .then(function(docRef) {
-            console.log("Document written with ID: ", docRef.id);
-        })
-        .catch(function(error) {
-            console.error("Error adding document: ", error);
-        });
-        window.location.reload();
+        db.collection("users").doc(authUser.user.uid).set({
+          uid: authUser.user.uid,
+          bio: "Here goes your bio. Edit it by double clicking."
+      })
+      .then(function(docRef) {
+          console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+          console.error("Error adding document: ", error);
+      });
+       
       return authUser.user.updateProfile({
         displayName: handleSignUpUserChange.split(' ').join(''),
         photoURL: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png"
+
       })
     })
     .catch(error => alert(error.message));
-
+     setTimeout(() => window.location.reload(), 1000) ;
   }
 
   const [user, setUser] = useState(null);

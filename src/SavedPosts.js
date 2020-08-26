@@ -169,6 +169,34 @@ const handleClose = () => {
 
 // For bio updating
       const [bioUpdating, setBioUpdating] = useToggle(false);
+      const [bioInput, setBioInput] = useState(props.bio);
+
+      function handleBioInput(e) {
+        setBioInput(e.target.value);
+      }
+
+      useEffect(() => {
+        setBioInput(props.bio);
+      }, [props.bio])
+
+
+      function editBio() {
+
+        //To update collection
+        db.collection("users").doc(auth.currentUser.uid).set({
+            bio: bioInput,
+            uid: auth.currentUser.uid
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+
+        setBioUpdating();
+      }
+
       const bioForm = (
         <form style={{marginTop: "20px"}}>
           <TextField
@@ -176,10 +204,11 @@ const handleClose = () => {
           label="Bio"
           multiline
           rows={4}
-          value={"Bio"}
+          value={bioInput}
+          onChange={handleBioInput}
           variant="outlined"
         />
-          <Button>Change</Button>
+          <Button onClick={editBio}>Change</Button>
         </form>
       )
 
@@ -227,10 +256,10 @@ const handleClose = () => {
                  <div className="profile_infotext">
                     <h1 style={{marginBottom: "10px"}}>{user.displayName}</h1>
                     <Button variant="contained">Edit Profile</Button>
-                    <p style={{textAlign: "center"}}><span>{props.posts.filter(post => post.data.email === auth.currentUser.email).length}</span> Posts</p>
+                    <p style={{textAlign: "center"}}><span>{props.posts.length}</span> Posts</p>
                     <span>{user.displayName}</span>
                   {bioUpdating ? bioForm : 
-                    <p onDoubleClick={setBioUpdating}></p>
+                    <p onDoubleClick={setBioUpdating}>{props.bio}</p>
                   }
                  </div>
             </div>
