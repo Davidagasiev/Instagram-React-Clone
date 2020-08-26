@@ -18,6 +18,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import Divider from '@material-ui/core/Divider';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 // Modal styles
 const useStyles = makeStyles((theme) => ({
@@ -301,8 +302,20 @@ const whenLoggedIn = (
 
 
 {/********************************* Post Adding Modal ****************************************************/}
+    <MenuItem ><a href="/profile/settings" style={{color: "black"}}><SettingsIcon />Settings</a></MenuItem>
     <Divider />
-    <MenuItem onClick={() => {auth.signOut();  setAnchorEl(null); window.location.reload()} }><ExitToAppIcon /> Log Out</MenuItem>
+    <MenuItem onClick={() => {
+      auth.signOut();
+      setAnchorEl(null); 
+      setTimeout(() => {
+        if(window.location.pathname !== "/"){
+          window.location.replace("/");
+        }else{
+          window.location.reload();
+        }
+      },1000)
+      
+      } }><ExitToAppIcon /> Log Out</MenuItem>
   </div>
 );
 

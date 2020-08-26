@@ -1,0 +1,80 @@
+.EditProfile{
+    width: 100%;
+    min-height: 500px;
+    background-color: white;
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.EditProfile form{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.EditProfile button{
+    margin: 20px;
+}
+
+.EditProfile label{
+    margin: 20px;
+    font-weight: 600;
+}
+
+.EditProfile .profile_infoavatar{
+    margin-top: 30px;
+}
+
+.EditProfile_div{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width: 580px){
+    .EditProfile form{
+        width: 100%;
+    }
+
+    .EditProfile_div{
+        flex-direction: column;
+    }
+
+    .EditProfile_div label{
+        margin-bottom: 20px;
+    }
+}
+
+.EditProfile_div label{
+    margin: 0;
+    margin-right: 20px;
+}
+
+.EditProfile_div input, .EditProfile_div textarea{
+    width: 70%;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 18px;
+    color: rgb(90, 90, 90);
+}
+
+.EditProfile_div input{
+    height: 20px;
+}
+
+.EditProfile_div textarea{
+    resize: vertical;
+    min-height: 120px;
+    max-height: 300px;
+    line-height: 1.5;
+}

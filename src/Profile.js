@@ -215,6 +215,10 @@ const handleClose = () => {
 
 // For bio updating
 
+// For Settings Modal
+
+
+
     return (
         <div className="Profile">
             <div className="profile_info">
@@ -256,7 +260,7 @@ const handleClose = () => {
                  </div>
                  <div className="profile_infotext">
                     <h1 style={{marginBottom: "10px"}}>{user.displayName}</h1>
-                    <Button variant="contained">Edit Profile</Button>
+                    <Button variant="contained"><a href="/profile/settings" style={{width: "100%", color: "black"}}>Edit Profile</a></Button>
                     <p style={{textAlign: "center"}}><span>{props.posts.length}</span> Posts</p>
                     <span>{user.displayName}</span>
                   {bioUpdating ? bioForm : 

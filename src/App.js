@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import Main from "./Main";
 import Profile from "./Profile";
 import SavedPosts from "./SavedPosts";
+import EditProfile from "./EditProfile";
 
 import { Route, Switch, Redirect } from "react-router-dom";
 
@@ -82,19 +83,26 @@ useEffect(() => {
             bubbleSort={bubbleSort} 
             posts={posts}/> }
           />
-          <Route exact path="/profile" render={() => <Profile 
-            bio={bio} 
-            bubbleSort={bubbleSort} 
-            users={users} 
-            posts={posts.filter(post => post.data.email === auth.currentUser.email)}/> }
+
+
+          <Route exact path="/profile" render={ () =>
+            <Profile 
+              bio={bio} 
+              bubbleSort={bubbleSort} 
+              users={users} 
+              posts={posts.filter(post => post.data.email === auth.currentUser.email)}/>}
           />
 
-          <Route exact path="/profile/saved" render={() => <SavedPosts 
-            bio={bio} 
-            bubbleSort={bubbleSort} 
-            users={users} 
-            posts={posts}/> } 
+          <Route exact path="/profile/saved" render={() => 
+            <SavedPosts 
+              bio={bio} 
+              bubbleSort={bubbleSort} 
+              users={users} 
+              posts={posts}/>
+            } 
           />
+
+          <Route exact path="/profile/settings" render={() => <EditProfile bio={bio} userName={auth.currentUser} users={users}/> }/>
 
           <Route render={() => <Redirect to="/"/> }/>
         </Switch>
