@@ -288,7 +288,7 @@ const whenLoggedIn = (
 
 
 {/********************************* Post Adding Modal ****************************************************/}
-    <MenuItem onClick={() => {auth.signOut(); window.location.reload()} }>Log Out</MenuItem>
+    <MenuItem onClick={() => {auth.signOut();  setAnchorEl(null); window.location.reload()} }>Log Out</MenuItem>
   </div>
 );
 
