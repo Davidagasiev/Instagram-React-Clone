@@ -70,7 +70,8 @@ function PostAdding(props) {
                                 user: auth.currentUser.displayName,
                                 userPhoto: auth.currentUser.photoURL,
                                 comments: "[]",
-                                email: auth.currentUser.email
+                                email: auth.currentUser.email,
+                                date: new Date()
                             })
                             .then(function(docRef) {
                                 console.log("Document written with ID: ", docRef.id);

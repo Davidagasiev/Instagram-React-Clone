@@ -38,7 +38,8 @@ function Post(props) {
                 user: props.user,
                 saved: props.saved,
                 comments: JSON.stringify(newComments),
-                email: props.email
+                email: props.email,
+                date: props.date
             })
             .then(function() {
                 console.log("Comments was successfully added to post " + props.id);
@@ -77,7 +78,8 @@ function Post(props) {
                 user: props.user,
                 userPhoto: props.userPhoto,
                 comments: props.comments,
-                email: props.email
+                email: props.email,
+                date: props.date
             })
             .then(function() {
                 console.log("Post was successfully liked or unliked" + props.id);
@@ -118,7 +120,8 @@ function Post(props) {
                     user: props.user,
                     userPhoto: props.userPhoto,
                     comments: props.comments,
-                    email: props.email
+                    email: props.email,
+                    date: props.date
                 })
                 .then(function() {
                     console.log("Post was successfully Saved or Unsaved" + props.id);

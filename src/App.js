@@ -10,6 +10,23 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 function App() {
 
+  function bubbleSort(arr){
+    let noSwaps;
+    for(let i = arr.length; i > 0; i--){
+      noSwaps = true;
+      for(let j = 0; j < i - 1; j++){
+        if(arr[j].data.date.toDate().getTime() < arr[j+1].data.date.toDate().getTime()){
+          let temp = arr[j];
+          arr[j] = arr[j+1];
+          arr[j+1] = temp;
+          noSwaps = false;         
+          }
+        }
+      if(noSwaps) break;
+    }
+  return arr;
+}
+
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true);
 
@@ -24,6 +41,7 @@ function App() {
           data: doc.data(),
           id: doc.id
           })));
+      
       })
 
       db.collection("users").onSnapshot(snapshot => {
@@ -32,6 +50,7 @@ function App() {
           })));
       })
   }, [])
+
   return (
     <div className="App">
       {loading ?
@@ -45,9 +64,9 @@ function App() {
 
       <div className="container">
         <Switch>
-          <Route exact path="/" render={() => <Main posts={posts}/> }/>
-          <Route exact path="/profile" render={() => <Profile users={users} posts={posts.filter(post => post.data.email === auth.currentUser.email)}/> }/>
-          <Route exact path="/profile/saved" render={() => <SavedPosts users={users} posts={posts}/> }/>
+          <Route exact path="/" render={() => <Main bubbleSort={bubbleSort} posts={posts}/> }/>
+          <Route exact path="/profile" render={() => <Profile bubbleSort={bubbleSort} users={users} posts={posts.filter(post => post.data.email === auth.currentUser.email)}/> }/>
+          <Route exact path="/profile/saved" render={() => <SavedPosts bubbleSort={bubbleSort} users={users} posts={posts}/> }/>
           <Route render={() => <Redirect to="/"/> }/>
         </Switch>
           

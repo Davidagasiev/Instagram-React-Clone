@@ -9,7 +9,7 @@ function Main(props) {
         <>
             
           {/* Post List */}
-          <PostList posts={props.posts} />
+          <PostList posts={props.bubbleSort(props.posts)} />
           {/* Post List */}
 
 
