@@ -13,6 +13,11 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AddBoxIcon from '@material-ui/icons/AddBox';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import Divider from '@material-ui/core/Divider';
 
 // Modal styles
 const useStyles = makeStyles((theme) => ({
@@ -263,8 +268,9 @@ function handlePostAdding() {
 
 const whenLoggedIn = (
   <div>
-    <MenuItem ><a style={{color: "black"}} href="/profile">My Profile</a></MenuItem>
-    <MenuItem onClick={handlePostAdding}>Create Post</MenuItem>
+    <MenuItem ><a style={{color: "black"}} href="/profile"><AccountCircleIcon/> My Profile</a></MenuItem>
+    <MenuItem ><a style={{color: "black"}} href="/profile/saved"><BookmarksIcon/> Saved</a></MenuItem>
+    <MenuItem onClick={handlePostAdding}><AddBoxIcon/> Create Post</MenuItem>
     {/********************************* Post Adding Modal ****************************************************/}
 
               <Modal
@@ -289,7 +295,8 @@ const whenLoggedIn = (
 
 
 {/********************************* Post Adding Modal ****************************************************/}
-    <MenuItem onClick={() => {auth.signOut();  setAnchorEl(null); window.location.reload()} }>Log Out</MenuItem>
+    <Divider />
+    <MenuItem onClick={() => {auth.signOut();  setAnchorEl(null); window.location.reload()} }><ExitToAppIcon /> Log Out</MenuItem>
   </div>
 );
 

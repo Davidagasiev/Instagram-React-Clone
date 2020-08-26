@@ -29,6 +29,16 @@
 
 /* Navbar */
 
+/* Menu */
+#simple-menu a{
+    display: flex;
+    align-items: center;
+}
+
+#simple-menu svg{
+    margin-right: 5px;
+}
+/* Menu */
 
 /* Modal */
 .userAuth{
