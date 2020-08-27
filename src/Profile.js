@@ -112,7 +112,7 @@ const handleClose = () => {
                             user: post.data.user,
                             userPhoto: url,
                             comments: post.data.comments,
-                            email: post.data.email,
+                            uid: post.data.uid,
                             date: post.data.date
                           })
                           .then(function() {
@@ -159,7 +159,7 @@ const handleClose = () => {
           photoURL: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png"
         }).then(function() {
           // Update successful.
-            const myPosts = props.posts.filter(post => post.data.email === auth.currentUser.email);
+            const myPosts = props.posts.filter(post => post.data.uid === auth.currentUser.uid);
                       myPosts.forEach(post => {
                           // To update UserPhoto
                           db.collection("posts").doc(post.id).set({
@@ -170,7 +170,7 @@ const handleClose = () => {
                             user: post.data.user,
                             userPhoto: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png",
                             comments: post.data.comments,
-                            email: post.data.email,
+                            uid: post.data.uid,
                             date: post.data.date
                           })
                           .then(function() {
@@ -294,7 +294,7 @@ const handleClose = () => {
             </ul>
 
             {/* Posts */}
-              <PostGrid posts={props.bubbleSort(props.posts.filter(post => post.data.email === auth.currentUser.email))}/>
+              <PostGrid posts={props.bubbleSort(props.posts.filter(post => post.data.uid === auth.currentUser.uid))}/>
             {/* Posts */}
         </div>
     )

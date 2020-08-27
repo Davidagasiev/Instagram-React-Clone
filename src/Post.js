@@ -29,7 +29,7 @@ function Post(props) {
             alert("You are not logged in.")
         }else{
         const evalComments = JSON.parse(props.comments),
-        newComments = [...evalComments, {user: auth.currentUser.displayName, comment: commentForm}]
+        newComments = [...evalComments, {user: auth.currentUser.displayName, uid: auth.currentUser.uid, comment: commentForm}]
         db.collection("posts").doc(props.id).set({
                 caption: props.caption,
                 imageUrl: props.imageUrl,
@@ -38,7 +38,7 @@ function Post(props) {
                 user: props.user,
                 saved: props.saved,
                 comments: JSON.stringify(newComments),
-                email: props.email,
+                uid: props.uid,
                 date: props.date
             })
             .then(function() {
@@ -53,12 +53,12 @@ function Post(props) {
 
     // **************************Like Adding******************************************
     const [liked, setLiked] = useState(JSON.parse(props.likes).some(i => {
-        return i === (auth.currentUser ? auth.currentUser.email : "");
+        return i === (auth.currentUser ? auth.currentUser.uid : "");
     }));
 
     useEffect(() => {
         setLiked(JSON.parse(props.likes).some(i => {
-            return i === (auth.currentUser ? auth.currentUser.email : "");
+            return i === (auth.currentUser ? auth.currentUser.uid : "");
         }))
     }, [props.likes])
 
@@ -69,7 +69,7 @@ function Post(props) {
             alert("You are not logged in.")
         }else{
         const currentLikes = JSON.parse(props.likes),
-        newLikes = liked ? [...currentLikes].filter(i => i !== auth.currentUser.email) : [...currentLikes, auth.currentUser.email];
+        newLikes = liked ? [...currentLikes].filter(i => i !== auth.currentUser.uid) : [...currentLikes, auth.currentUser.uid];
         db.collection("posts").doc(props.id).set({
                 caption: props.caption,
                 imageUrl: props.imageUrl,
@@ -78,11 +78,11 @@ function Post(props) {
                 user: props.user,
                 userPhoto: props.userPhoto,
                 comments: props.comments,
-                email: props.email,
+                uid: props.uid,
                 date: props.date
             })
             .then(function() {
-                console.log("Post was successfully liked or unliked" + props.id);
+                console.log("Post was successfully liked or unliked " + props.id);
             })
             .catch(function(error) {
                 console.error("Error writing document: ", error);
@@ -95,12 +95,12 @@ function Post(props) {
 
     // **************************Saving******************************************
         const [saved, setSaved] = useState(JSON.parse(props.saved).some(i => {
-            return i === (auth.currentUser ? auth.currentUser.email : "");
+            return i === (auth.currentUser ? auth.currentUser.uid : "");
         }));
     
         useEffect(() => {
             setSaved(JSON.parse(props.saved).some(i => {
-                return i === (auth.currentUser ? auth.currentUser.email : "");
+                return i === (auth.currentUser ? auth.currentUser.uid : "");
             }))
         },[props.saved])
     
@@ -111,7 +111,7 @@ function Post(props) {
                 alert("You are not logged in.")
             }else{
             const currentSaved = JSON.parse(props.saved),
-            newSaved = saved ? [...currentSaved].filter(i => i !== auth.currentUser.email) : [...currentSaved, auth.currentUser.email];
+            newSaved = saved ? [...currentSaved].filter(i => i !== auth.currentUser.uid) : [...currentSaved, auth.currentUser.uid];
             db.collection("posts").doc(props.id).set({
                     caption: props.caption,
                     imageUrl: props.imageUrl,
@@ -120,11 +120,11 @@ function Post(props) {
                     user: props.user,
                     userPhoto: props.userPhoto,
                     comments: props.comments,
-                    email: props.email,
+                    uid: props.uid,
                     date: props.date
                 })
                 .then(function() {
-                    console.log("Post was successfully Saved or Unsaved" + props.id);
+                    console.log("Post was successfully Saved or Unsaved " + props.id);
                 })
                 .catch(function(error) {
                     console.error("Error writing document: ", error);

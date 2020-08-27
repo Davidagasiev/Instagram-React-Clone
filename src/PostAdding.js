@@ -70,7 +70,7 @@ function PostAdding(props) {
                                 user: auth.currentUser.displayName,
                                 userPhoto: auth.currentUser.photoURL,
                                 comments: "[]",
-                                email: auth.currentUser.email,
+                                uid: auth.currentUser.uid,
                                 date: new Date()
                             })
                             .then(function(docRef) {

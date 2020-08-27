@@ -90,7 +90,7 @@ useEffect(() => {
               bio={bio} 
               bubbleSort={bubbleSort} 
               users={users} 
-              posts={posts.filter(post => post.data.email === auth.currentUser.email)}/>}
+              posts={posts.filter(post => post.data.uid === auth.currentUser.uid)}/>}
           />
 
           <Route exact path="/profile/saved" render={() => 

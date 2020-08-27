@@ -271,7 +271,7 @@ const handleClose = () => {
 
             {/* Saved Posts */}
             <PostGrid posts={props.posts.filter(post => JSON.parse(post.data.saved).some(i => {
-          return i === (auth.currentUser ? auth.currentUser.email : "")}))} />
+          return i === (auth.currentUser ? auth.currentUser.uid : "")}))} />
             {/* Saved Posts */}
         </div>
     )

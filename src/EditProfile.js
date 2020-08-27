@@ -246,7 +246,7 @@ var user = auth.currentUser;
         }).then(function() {
           // Update successful.
           //  Update username on all posts
-            const myPosts = props.posts.filter(post => post.data.email === auth.currentUser.email);
+            const myPosts = props.posts.filter(post => post.data.uid === auth.currentUser.uid);
             myPosts.forEach(post => {
                 // To update UserPhoto
                 db.collection("posts").doc(post.id).set({
@@ -257,7 +257,7 @@ var user = auth.currentUser;
                   user: usernameInput,
                   userPhoto: post.data.userPhoto,
                   comments: post.data.comments,
-                  email: post.data.email,
+                  uid: post.data.uid,
                   date: post.data.date
                 })
                 .then(function() {
@@ -278,7 +278,46 @@ var user = auth.currentUser;
           })
           .catch(function(error) {
               console.error("Error writing document: ", error);
+          })
+
+// To update username in other posts and comments
+
+          props.posts.forEach(post => {
+            // To update UserPhoto
+          let userComments = [], otherComments = [], newComments = [];
+
+          JSON.parse(post.data.comments).forEach(item => {
+            if(item.uid === auth.currentUser.uid){
+              userComments = [...userComments, {user: usernameInput, uid: item.uid, comment: item.comment}];
+            }else{
+              otherComments = [...otherComments, item];
+            }
+          })
+
+          
+            newComments = [...userComments, ...otherComments];
+            console.log(newComments);
+            db.collection("posts").doc(post.id).set({
+              caption: post.data.caption,
+              imageUrl: post.data.imageUrl,
+              likes: post.data.likes,
+              saved: post.data.saved,
+              user: usernameInput,
+              userPhoto: post.data.userPhoto,
+              comments: JSON.stringify(newComments),
+              uid: post.data.uid,
+              date: post.data.date
+            })
+            .then(function() {
+                console.log("Document successfully written!");
+            })
+            .catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
           });
+// To update username in other posts and comments
+
+
         }).catch(function(error) {
           // An error happened.
           alert(error.message);
@@ -326,78 +365,21 @@ useEffect(() => {
 
     function changeEmail(e) {
       e.preventDefault();
-      const oldEmail = auth.currentUser.email;
       auth.currentUser.updateEmail(emailInput).then(function() {
         // Update successful.
-
-        // To update post likes and saved
-        props.posts.forEach(post => {
-            
-            let newLikes, newSaved, newComments;
-
-              if(JSON.parse(post.data.likes).some(item => item === oldEmail)){
-                newLikes = JSON.parse(post.data.likes).filter(i => i !== oldEmail);
-                newLikes = [...newLikes, emailInput];
-              }else{
-                newLikes = JSON.parse(post.data.likes);
-              }
-
-              if(JSON.parse(post.data.saved).some(item => item === oldEmail)){
-                newSaved = JSON.parse(post.data.saved).filter(i => i !== oldEmail);
-                newSaved = [...newSaved, emailInput];
-              }else{
-                newSaved = JSON.parse(post.data.saved);
-              }
-              
-            db.collection("posts").doc(post.id).set({
-              caption: post.data.caption,
-              imageUrl: post.data.imageUrl,
-              likes: JSON.stringify(newLikes),
-              saved: JSON.stringify(newSaved),
-              user: post.data.user,
-              userPhoto: post.data.userPhoto,
-              comments: post.data.comments,
-              email: post.data.email,
-              date: post.data.date
-            })
-        })
-
-        // To update post likes and saved
-
-  //Sending Verification
+//Sending Verification
         auth.currentUser.sendEmailVerification().then(function() {
           // Email sent.
           alert("We send you a verification email so check your email.");
-
-        const myPosts = props.posts.filter(post => post.data.email === oldEmail);
-        
-        // To update email in users posts
-
-        myPosts.forEach(post => {
-
-          db.collection("posts").doc(post.id).set({
-            caption: post.data.caption,
-            imageUrl: post.data.imageUrl,
-            likes: post.data.likes,
-            saved: post.data.saved,
-            user: post.data.user,
-            userPhoto: post.data.userPhoto,
-            comments: post.data.comments,
-            email: emailInput,
-            date: post.data.date
-          })
-      })
-
-        // To update email in users posts
-        
         }).catch(function(error) {
           // An error happened.
           alert(error.message);
+          console.log(error);
         });
-  //Sending Verification
-
+//Sending Verification
       }).catch(function(error) {
         // An error happened.
+        console.log(error);
         alert(error.message);
       });
     }
