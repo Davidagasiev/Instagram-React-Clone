@@ -102,7 +102,14 @@ useEffect(() => {
             } 
           />
 
-          <Route exact path="/profile/settings" render={() => <EditProfile bio={bio} userName={auth.currentUser} users={users}/> }/>
+          <Route exact path="/profile/settings" render={() => 
+            <EditProfile 
+              bio={bio} 
+              posts={posts.filter(post => post.data.email === auth.currentUser.email)} 
+              users={users} 
+              userName={auth.currentUser}
+            />
+           }/>
 
           <Route render={() => <Redirect to="/"/> }/>
         </Switch>

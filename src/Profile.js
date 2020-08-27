@@ -95,9 +95,8 @@ const handleClose = () => {
                 .getDownloadURL()
                 .then(url => {
 
-                  var user = auth.currentUser;
 
-                  user.updateProfile({
+                  auth.currentUser.updateProfile({
                     photoURL: url
                   }).then(function() {
                     // Update successful.
@@ -160,6 +159,27 @@ const handleClose = () => {
           photoURL: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png"
         }).then(function() {
           // Update successful.
+            const myPosts = props.posts.filter(post => post.data.email === auth.currentUser.email);
+                      myPosts.forEach(post => {
+                          // To update UserPhoto
+                          db.collection("posts").doc(post.id).set({
+                            caption: post.data.caption,
+                            imageUrl: post.data.imageUrl,
+                            likes: post.data.likes,
+                            saved: post.data.saved,
+                            user: post.data.user,
+                            userPhoto: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png",
+                            comments: post.data.comments,
+                            email: post.data.email,
+                            date: post.data.date
+                          })
+                          .then(function() {
+                              console.log("Document successfully written!");
+                          })
+                          .catch(function(error) {
+                              console.error("Error writing document: ", error);
+                          });
+                      });
           console.log("Photo was deleted");
           handleClose();
         }).catch(function(error) {
