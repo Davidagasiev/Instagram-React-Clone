@@ -105,7 +105,7 @@ useEffect(() => {
           <Route exact path="/profile/settings" render={() => 
             <EditProfile 
               bio={bio} 
-              posts={posts.filter(post => post.data.email === auth.currentUser.email)} 
+              posts={posts} 
               users={users} 
               userName={auth.currentUser}
             />
