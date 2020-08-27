@@ -216,7 +216,33 @@ console.log(error.message);
 
 //For Bio
 
+// For UserName And Bio
 
+    function changeUserNameAndBio(e){
+      e.preventDefault();
+        user.updateProfile({
+          displayName: usernameInput
+        }).then(function() {
+          // Update successful.
+          // To update bio
+            db.collection("users").doc(auth.currentUser.uid).set({
+              bio: bioInput,
+              uid: auth.currentUser.uid
+          })
+          .then(function() {
+              console.log("Document successfully written!");
+              alert("Username and Bio were successfully Updated.")
+          })
+          .catch(function(error) {
+              console.error("Error writing document: ", error);
+          });
+        }).catch(function(error) {
+          // An error happened.
+          alert(error.message);
+        });
+    }
+
+// For UserName And Bio
 
 
 
@@ -332,7 +358,7 @@ useEffect(() => {
                 </div>
 
                 
-                <Button variant="contained" color="primary">
+                <Button onClick={changeUserNameAndBio} variant="contained" color="primary">
                     Submit
                 </Button>
  
