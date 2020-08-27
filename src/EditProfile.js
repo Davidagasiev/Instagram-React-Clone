@@ -217,18 +217,7 @@ console.log(error.message);
 //For Bio
 
 
-// For email
-const [emailInput, setEmailInput] = useState("");
 
-function handleEmailInput(e) {
-    setEmailInput(e.target.value);
-}
-
-useEffect(() => {
-    if(auth.currentUser) setEmailInput(auth.currentUser.email);
-}, [auth.currentUser]);
-
-// For email
 
 
 // For Password
@@ -248,6 +237,42 @@ useEffect(() => {
     }
 
 // For password
+
+// For email
+const [emailInput, setEmailInput] = useState("");
+
+function handleEmailInput(e) {
+    setEmailInput(e.target.value);
+}
+
+useEffect(() => {
+    if(auth.currentUser) {
+      setEmailInput(auth.currentUser.email);
+    }
+}, [auth.currentUser]);
+
+// For email
+
+//Email Changing
+
+    function changeEmail(e) {
+      e.preventDefault();
+      auth.currentUser.updateEmail(emailInput).then(function() {
+        // Update successful.
+        auth.currentUser.sendEmailVerification().then(function() {
+          // Email sent.
+          alert("We send you a verification email so check your email.");
+        }).catch(function(error) {
+          // An error happened.
+          alert(error.message);
+        });
+      }).catch(function(error) {
+        // An error happened.
+        alert(error.message);
+      });
+    }
+
+// Email Changing
 
     return   (
     <div className="EditProfile">
@@ -306,33 +331,46 @@ useEffect(() => {
                     <textarea value={bioInput} onChange={handleBioInput} id="bio" type="text" className="EditProfile_input" />
                 </div>
 
-                <div className="EditProfile_div">
-                    <label htmlFor="email">Email</label>
-                    <input value={emailInput} onChange={handleEmailInput} id="email" type="text" className="EditProfile_input"/>
-                </div>
-
                 
-
                 <Button variant="contained" color="primary">
                     Submit
                 </Button>
  
             </form>
 
+
             <Divider style={{width: "100%"}} />
+
+
+{/* For Email */}
+                  <form style={{marginTop: "50px"}}>
+                    <div className="EditProfile_div">
+                      <label htmlFor="email">Email</label>
+                      <input value={emailInput} onChange={handleEmailInput} id="email" type="text" className="EditProfile_input"/>
+                  </div>
+                  <Button onClick={changeEmail} variant="contained" color="primary">
+                      Change Email
+                  </Button>
+                  </form>      
+{/* For Email */}
+
+
+            <Divider style={{width: "100%"}} />
+
 
 {/* Password Form */}
             <form style={{marginTop: "50px"}}>
+                
                 <div className="EditProfile_div">
                     <label htmlFor="password">Password</label>
                     <input value={passwordInput} onChange={setPasswordInput} id="password" type="text" className="EditProfile_input"/>
                 </div>
+
                 <Button onClick={changePassword} variant="contained" color="primary">
-                    Change
+                    Change Password
                 </Button>
             
             </form>
-
 {/* Password Form */}
 
             <Divider style={{width: "100%"}} />
