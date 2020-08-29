@@ -302,7 +302,7 @@ var user = auth.currentUser;
               imageUrl: post.data.imageUrl,
               likes: post.data.likes,
               saved: post.data.saved,
-              user: usernameInput,
+              user: post.data.user,
               userPhoto: post.data.userPhoto,
               comments: JSON.stringify(newComments),
               uid: post.data.uid,
