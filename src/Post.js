@@ -3,6 +3,7 @@ import "./Post.css";
 import CommentsList from "./CommentsList";
 import useInput from "./Hooks/useInput";
 import {db, auth} from "./firebase";
+import MiniProfile from "./MiniProfile";
 
 import { Avatar } from '@material-ui/core';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
@@ -15,8 +16,13 @@ import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 
 import TextField from '@material-ui/core/TextField';
 
+import Dialog from '@material-ui/core/Dialog';
+import Slide from '@material-ui/core/Slide';
 
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="left" ref={ref} {...props} />;
+  });
 
 function Post(props) {
 
@@ -136,13 +142,35 @@ function Post(props) {
     // **************************Saving******************************************
     
 
+    // Mini Profile Modal
+
+    const [open, setOpen] = React.useState(false);
+  
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    // Mini Profile Modal
+
     return (
         <div className="Post">
 
             <div className="post_header">
                 <div className="post_userinfo">
-                    <Avatar style={{cursor:"pointer"}} src={props.userPhoto}>{(props.user + "")[0]}</Avatar>
-                    <span style={{cursor:"pointer"}}>{props.user}</span>
+                    <Avatar onClick={handleOpen} style={{cursor:"pointer"}} src={props.userPhoto}>{(props.user + "")[0]}</Avatar>
+                    <span onClick={handleOpen} style={{cursor:"pointer"}}>{props.user}</span>
+        
+        {/* MiniProfile Dialog */}
+
+                    <Dialog fullScreen open={open}  TransitionComponent={Transition}>
+                       <MiniProfile onClose={handleClose} posts={props.posts} userPhoto={props.userPhoto} uid={props.uid} userName={props.user}/>
+                    </Dialog>
+        {/* MiniProfile Dialog */}
+
                 </div>
                 <div className="post_more">
                     <MoreHorizIcon style={{cursor:"pointer"}} />

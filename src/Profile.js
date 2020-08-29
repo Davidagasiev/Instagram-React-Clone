@@ -3,7 +3,6 @@ import { auth, storage, db } from "./firebase";
 import "./Profile.css";
 import PostGrid from "./PostGrid";
 import useToggle from "./Hooks/useToggle";
-import useInput from './Hooks/useInput';
 
 import { NavLink} from "react-router-dom";
 
@@ -234,10 +233,6 @@ const handleClose = () => {
       )
 
 // For bio updating
-
-// For Settings Modal
-
-
 
     return (
         <div className="Profile">
