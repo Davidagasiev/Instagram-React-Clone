@@ -3,39 +3,12 @@ import React, {useState, useEffect} from "react";
 import "./Profile.css";
 import PostGrid from "./PostGrid";
 import Navbar from "./Navbar";
-import {db, auth} from "./firebase";
 
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 function MiniProfile(props) {
-
-//For bio
-
-const [users, setUsers] = useState([]);
-
-const [bio, setBio] = useState("");
-
-useEffect(() =>{
-    //This is how to get info from firebase
-      db.collection("users").onSnapshot(snapshot => {
-        setUsers(snapshot.docs.map(doc => ({
-          ...doc.data()
-          })));
-        
-      })
-  }, [])
-
-
-useEffect(() => {
-        if(auth.currentUser){
-          Array.prototype.forEach.call(users, user => {
-            if(user.uid === auth.currentUser.uid) setBio(user.bio);
-          })
-        }
-  }, [users])
-//For bio
 
     return (
         <>
@@ -57,7 +30,7 @@ useEffect(() => {
                         <h1 style={{marginBottom: "10px"}}>{props.userName}</h1>
                         <p style={{textAlign: "center"}}><span>{props.posts.filter(post => post.data.uid === props.uid).length}</span> Posts</p>
 
-                        <p>{bio}</p>
+                        <p>{props.bio}</p>
 
                     </div>
                 </div>

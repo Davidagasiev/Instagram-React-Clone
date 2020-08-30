@@ -73,7 +73,7 @@ useEffect(() => {
       </div> : ""
       }  
     {/* Navbar */}
-      <Navbar setBio={setBio} users={users} />
+      <Navbar bio={bio} users={users} />
     {/* Navbar */}
 
       <div className="container">

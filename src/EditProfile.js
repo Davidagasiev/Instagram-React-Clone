@@ -112,6 +112,7 @@ uploadTask.on(
                   userPhoto: url,
                   comments: post.data.comments,
                   uid: post.data.uid,
+                  bio: post.data.bio,
                   date: post.data.date
                 })
                 .then(function() {
@@ -170,6 +171,7 @@ var user = auth.currentUser;
                             userPhoto: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png",
                             comments: post.data.comments,
                             uid: post.data.uid,
+                            bio: post.data.bio,
                             date: post.data.date
                           })
                           .then(function() {
@@ -245,7 +247,15 @@ var user = auth.currentUser;
           displayName: usernameInput
         }).then(function() {
           // Update successful.
-          //  Update username on all posts
+          
+          // To update bio
+            db.collection("users").doc(auth.currentUser.uid).set({
+              bio: bioInput,
+              uid: auth.currentUser.uid
+          })
+          .then(function() {
+              //  Update username on all posts
+
             const myPosts = props.posts.filter(post => post.data.uid === auth.currentUser.uid);
             myPosts.forEach(post => {
                 // To update UserPhoto
@@ -258,22 +268,16 @@ var user = auth.currentUser;
                   userPhoto: post.data.userPhoto,
                   comments: post.data.comments,
                   uid: post.data.uid,
+                  bio: bioInput,
                   date: post.data.date
                 })
                 .then(function() {
-                    console.log("Document successfully written!");
+                    
                 })
                 .catch(function(error) {
                     console.error("Error writing document: ", error);
                 });
             });
-          // To update bio
-            db.collection("users").doc(auth.currentUser.uid).set({
-              bio: bioInput,
-              uid: auth.currentUser.uid
-          })
-          .then(function() {
-              console.log("Document successfully written!");
               alert("Username and Bio were successfully Updated.")
           })
           .catch(function(error) {
@@ -296,7 +300,6 @@ var user = auth.currentUser;
 
           
             newComments = [...userComments, ...otherComments];
-            console.log(newComments);
             db.collection("posts").doc(post.id).set({
               caption: post.data.caption,
               imageUrl: post.data.imageUrl,
@@ -306,6 +309,7 @@ var user = auth.currentUser;
               userPhoto: post.data.userPhoto,
               comments: JSON.stringify(newComments),
               uid: post.data.uid,
+              bio: post.data.bio,
               date: post.data.date
             })
             .then(function() {

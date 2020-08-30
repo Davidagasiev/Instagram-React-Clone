@@ -41,8 +41,15 @@
     opacity: 1;
 }
 
-.overlay_content li{
-    padding-top: 50%;
+.overlay ul{
+    position: relative;
+    top: 30%;
+}
+
+.overlay li{
     color: whitesmoke;
     user-select: none;
+    display: inline;
+    margin-right: 10px;
+    font-size: 18px;
 }

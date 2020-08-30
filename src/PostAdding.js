@@ -71,6 +71,7 @@ function PostAdding(props) {
                                 userPhoto: auth.currentUser.photoURL,
                                 comments: "[]",
                                 uid: auth.currentUser.uid,
+                                bio: props.bio,
                                 date: new Date()
                             })
                             .then(function(docRef) {

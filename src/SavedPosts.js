@@ -112,6 +112,7 @@ const handleClose = () => {
                             userPhoto: url,
                             comments: post.data.comments,
                             uid: post.data.uid,
+                            bio: post.data.bio,
                             date: post.data.date
                           })
                           .then(function() {
@@ -170,6 +171,7 @@ const handleClose = () => {
                             userPhoto: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png",
                             comments: post.data.comments,
                             uid: post.data.uid,
+                            bio: post.data.bio,
                             date: post.data.date
                           })
                           .then(function() {
@@ -208,6 +210,28 @@ const handleClose = () => {
             uid: auth.currentUser.uid
         })
         .then(function() {
+            const myPosts = props.posts.filter(post => post.data.uid === auth.currentUser.uid);
+            myPosts.forEach(post => {
+                // To update UserPhoto
+                db.collection("posts").doc(post.id).set({
+                  caption: post.data.caption,
+                  imageUrl: post.data.imageUrl,
+                  likes: post.data.likes,
+                  saved: post.data.saved,
+                  user: post.data.user,
+                  userPhoto: post.data.userPhoto,
+                  comments: post.data.comments,
+                  uid: post.data.uid,
+                  bio: bioInput,
+                  date: post.data.date
+                })
+                .then(function() {
+                    
+                })
+                .catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+            });
             console.log("Document successfully written!");
         })
         .catch(function(error) {
@@ -276,7 +300,7 @@ const handleClose = () => {
                  <div className="profile_infotext">
                     <h1 style={{marginBottom: "10px"}}>{user.displayName}</h1>
                     <Button variant="contained"><a href="/profile/settings" style={{width: "100%", color: "black"}}>Edit Profile</a></Button>
-                    <p style={{textAlign: "center"}}><span>{props.posts.filter(post => post.data.uid === auth.currentUser.uid).length}</span> Posts</p>
+                    <p style={{textAlign: "center"}}><span>{props.posts.length}</span> Posts</p>
                     <span>{user.displayName}</span>
                   {bioUpdating ? bioForm : 
                     <p onDoubleClick={setBioUpdating}>{props.bio}</p>

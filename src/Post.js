@@ -44,6 +44,7 @@ function Post(props) {
                 saved: props.saved,
                 comments: JSON.stringify(newComments),
                 uid: props.uid,
+                bio: props.bio,
                 date: props.date
             })
             .then(function() {
@@ -84,6 +85,7 @@ function Post(props) {
                 userPhoto: props.userPhoto,
                 comments: props.comments,
                 uid: props.uid,
+                bio: props.bio,
                 date: props.date
             })
             .then(function() {
@@ -126,6 +128,7 @@ function Post(props) {
                     userPhoto: props.userPhoto,
                     comments: props.comments,
                     uid: props.uid,
+                    bio: props.bio,
                     date: props.date
                 })
                 .then(function() {
@@ -166,7 +169,7 @@ function Post(props) {
         {/* MiniProfile Dialog */}
 
                     <Dialog fullScreen open={open}  TransitionComponent={Transition}>
-                       <MiniProfile onClose={handleClose} posts={props.posts} userPhoto={props.userPhoto} uid={props.uid} userName={props.user}/>
+                       <MiniProfile bio={props.bio} onClose={handleClose} posts={props.posts} userPhoto={props.userPhoto} uid={props.uid} userName={props.user}/>
                     </Dialog>
         {/* MiniProfile Dialog */}
 

@@ -295,7 +295,7 @@ const whenLoggedIn = (
               >
               <Fade in={postAddingOpen}>
                 <div className={classes.paper}>
-                  <PostAdding closeModal={setPostAdding}/>
+                  <PostAdding bio={props.bio} closeModal={setPostAdding}/>
                 </div>
               </Fade>
             </Modal>
