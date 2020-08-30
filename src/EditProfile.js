@@ -99,7 +99,7 @@ uploadTask.on(
           photoURL: url
         }).then(function() {
           // Update successful.
-          const myPosts = props.posts.filter(post => post.data.email === auth.currentUser.email);
+          const myPosts = props.posts.filter(post => post.data.uid === auth.currentUser.uid);
             myPosts.forEach(post => {
               if(post.data.userPhoto !== url){
                 // To update UserPhoto
@@ -111,7 +111,7 @@ uploadTask.on(
                   user: post.data.user,
                   userPhoto: url,
                   comments: post.data.comments,
-                  email: post.data.email,
+                  uid: post.data.uid,
                   date: post.data.date
                 })
                 .then(function() {
@@ -158,7 +158,7 @@ var user = auth.currentUser;
     photoURL: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png"
   }).then(function() {
     // Update successful.
-          const myPosts = props.posts.filter(post => post.data.email === auth.currentUser.email);
+          const myPosts = props.posts.filter(post => post.data.uid === auth.currentUser.uid);
                       myPosts.forEach(post => {
                           // To update UserPhoto
                           db.collection("posts").doc(post.id).set({
@@ -169,7 +169,7 @@ var user = auth.currentUser;
                             user: post.data.user,
                             userPhoto: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png",
                             comments: post.data.comments,
-                            email: post.data.email,
+                            uid: post.data.uid,
                             date: post.data.date
                           })
                           .then(function() {

@@ -6,7 +6,6 @@ import {db, auth} from "./firebase";
 import MiniProfile from "./MiniProfile";
 
 import { Avatar } from '@material-ui/core';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -171,9 +170,6 @@ function Post(props) {
                     </Dialog>
         {/* MiniProfile Dialog */}
 
-                </div>
-                <div className="post_more">
-                    <MoreHorizIcon style={{cursor:"pointer"}} />
                 </div>
             </div>
 

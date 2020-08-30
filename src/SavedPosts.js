@@ -3,7 +3,6 @@ import { auth, storage, db } from "./firebase";
 import "./Profile.css";
 import PostGrid from "./PostGrid";
 import useToggle from "./Hooks/useToggle";
-import useInput from './Hooks/useInput';
 
 import { NavLink} from "react-router-dom";
 
@@ -95,13 +94,12 @@ const handleClose = () => {
                 .getDownloadURL()
                 .then(url => {
 
-                  var user = auth.currentUser;
 
-                  user.updateProfile({
+                  auth.currentUser.updateProfile({
                     photoURL: url
                   }).then(function() {
                     // Update successful.
-                    const myPosts = props.posts.filter(post => post.data.email === auth.currentUser.email);
+                    const myPosts = props.posts.filter(post => post.data.uid === auth.currentUser.uid);
                       myPosts.forEach(post => {
                         if(post.data.userPhoto !== url){
                           // To update UserPhoto
@@ -113,7 +111,7 @@ const handleClose = () => {
                             user: post.data.user,
                             userPhoto: url,
                             comments: post.data.comments,
-                            email: post.data.email,
+                            uid: post.data.uid,
                             date: post.data.date
                           })
                           .then(function() {
@@ -160,6 +158,27 @@ const handleClose = () => {
           photoURL: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png"
         }).then(function() {
           // Update successful.
+            const myPosts = props.posts.filter(post => post.data.uid === auth.currentUser.uid);
+                      myPosts.forEach(post => {
+                          // To update UserPhoto
+                          db.collection("posts").doc(post.id).set({
+                            caption: post.data.caption,
+                            imageUrl: post.data.imageUrl,
+                            likes: post.data.likes,
+                            saved: post.data.saved,
+                            user: post.data.user,
+                            userPhoto: "https://us.v-cdn.net/6022045/uploads/defaultavatar.png",
+                            comments: post.data.comments,
+                            uid: post.data.uid,
+                            date: post.data.date
+                          })
+                          .then(function() {
+                              console.log("Document successfully written!");
+                          })
+                          .catch(function(error) {
+                              console.error("Error writing document: ", error);
+                          });
+                      });
           console.log("Photo was deleted");
           handleClose();
         }).catch(function(error) {
@@ -256,8 +275,8 @@ const handleClose = () => {
                  </div>
                  <div className="profile_infotext">
                     <h1 style={{marginBottom: "10px"}}>{user.displayName}</h1>
-                    <Button variant="contained">Edit Profile</Button>
-                    <p style={{textAlign: "center"}}><span>{(props.posts.filter(post => post.data.uid === auth.currentUser.uid)).length}</span> Posts</p>
+                    <Button variant="contained"><a href="/profile/settings" style={{width: "100%", color: "black"}}>Edit Profile</a></Button>
+                    <p style={{textAlign: "center"}}><span>{props.posts.filter(post => post.data.uid === auth.currentUser.uid).length}</span> Posts</p>
                     <span>{user.displayName}</span>
                   {bioUpdating ? bioForm : 
                     <p onDoubleClick={setBioUpdating}>{props.bio}</p>

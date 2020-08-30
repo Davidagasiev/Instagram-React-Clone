@@ -99,7 +99,7 @@ const handleClose = () => {
                     photoURL: url
                   }).then(function() {
                     // Update successful.
-                    const myPosts = props.posts.filter(post => post.data.email === auth.currentUser.email);
+                    const myPosts = props.posts.filter(post => post.data.uid === auth.currentUser.uid);
                       myPosts.forEach(post => {
                         if(post.data.userPhoto !== url){
                           // To update UserPhoto
