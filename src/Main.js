@@ -17,7 +17,7 @@ function Main(props) {
             <div className="embed">
               <div className="embed2">
                 <InstagramEmbed
-                  url='https://www.instagram.com/p/B_9au0YnJok/'
+                  url='https://www.instagram.com/p/CEKeX08MKxy/'
                   maxWidth={400}
                   hideCaption={false}
                   containerTagName='div'

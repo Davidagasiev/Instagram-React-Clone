@@ -243,7 +243,7 @@ const whenLoggedOut = (
                     <TextField type="email" required value={handleSignUpEmailChange} onChange={setHandleSignUpEmailChange} style={{marginTop: "5px", marginBottom: "10px"}} label="Email" />
                     <TextField type="password" required value={handleSignUpPassChange} onChange={setHandleSignUpPassChange} style={{marginTop: "5px", marginBottom: "25px"}} label="Password" />
                    <button style={{backgroundColor: "transparent", border: "none", outline: "none"}}>
-                     <Button style={{width: "100%"}}  variant="contained" color="primary">Log In</Button>
+                     <Button style={{width: "100%"}}  variant="contained" color="primary">Sign Up</Button>
                    </button>
                     
                   </form>

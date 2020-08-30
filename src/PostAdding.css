@@ -16,3 +16,13 @@
     margin-bottom: 10px;
     width: 100%;
 }
+
+.chosenPhoto{
+    background-size: cover;
+	background-position: 50% 50%;
+    border-radius: 50%;
+    margin-bottom: 10px;
+	width: 100px;
+	height: 100px;
+	box-shadow: 2px 2px 7px 1px #9B9B9B;
+}

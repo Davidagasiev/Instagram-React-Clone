@@ -33,10 +33,18 @@ function PostAdding(props) {
     const [upload, setUpload] = useState(null);
     const [showProgress, setShowProgress] = useToggle(false);
     const [progress, setProgress] = useState(0);
+    const [chosenFile, setChosenFile] = useState("");
 
     function handleUpload(e) {
         if(e.target.files[0]){
             setUpload(e.target.files[0]);
+                    var reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        setChosenFile(e.target.result);
+                    }
+                    
+                    reader.readAsDataURL(e.target.files[0]);    
         }
     }
 
@@ -118,14 +126,28 @@ function PostAdding(props) {
         multiple
         type="file"
       />
+    
       <label htmlFor="contained-button-file">
         <Button style={{width: "100%"}} variant="contained" color="primary" component="span">
-          Upload
+          Choose Photo
         </Button>
       </label>
-
+         
+            {upload ? 
+                <div className="chosenPhoto" style={{backgroundImage: `url(${chosenFile})`}}></div> : ""
+            }
                 {showProgress ? <CircularProgress variant="static" value={progress} /> : ""}
-
+            {   chosenFile === "" ?
+                <Button
+                    onClick={addPost}
+                    variant="contained"
+                    color="secondary"
+                    className={classes.button}
+                    startIcon={<AddCircleIcon />}
+                    disabled
+                        >
+                            Add Post
+                </Button> :
                 <Button
                     onClick={addPost}
                     variant="contained"
@@ -135,6 +157,7 @@ function PostAdding(props) {
                         >
                             Add Post
                 </Button>
+            }                
             </form>
         </div>
     )
