@@ -312,7 +312,7 @@ const handleClose = () => {
             </ul>
 
             {/* Posts */}
-              <PostGrid posts={props.bubbleSort(props.posts.filter(post => post.data.uid === auth.currentUser.uid))}/>
+              <PostGrid usersPage={true} posts={props.bubbleSort(props.posts.filter(post => post.data.uid === auth.currentUser.uid))}/>
             {/* Posts */}
         </div>
     )

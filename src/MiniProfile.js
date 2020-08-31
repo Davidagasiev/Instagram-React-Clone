@@ -38,7 +38,7 @@ function MiniProfile(props) {
 
                 <Divider style={{width: "100%", marginTop: "15px"}} />
                 {/* Posts */}
-                <PostGrid posts={props.posts.filter(post => post.data.uid === props.uid)}/>
+                <PostGrid usersPage={false} posts={props.posts.filter(post => post.data.uid === props.uid)}/>
                 {/* Posts */}
             </div>
         </div>

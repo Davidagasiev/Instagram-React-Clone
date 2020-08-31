@@ -34,11 +34,11 @@ function deletePost(){
 
 // Post Delete
     return ( 
-                <div key={props.id} className="gridItem" >
-                    <img src={props.imageUrl} alt="Post"/>
+                <li key={props.id} className="gridItem" >
+                    <div className="gridItem_div" style={{backgroundImage: `url(${props.imageUrl})`}}></div>
                     <div className="overlay">
                     {window.location.pathname === "/profile" ?
-                        <IconButton onClick={handleClick} style={{color: "whitesmoke", position: "relative", right: "-40%", top: "10px"}}>
+                        <IconButton onClick={handleClick} >
                             <MoreHorizIcon />
                         </IconButton> : ""
                     }
@@ -50,15 +50,21 @@ function deletePost(){
                         onClose={handleClose}
                         >
                         <MenuItem onClick={deletePost}>Delete Post</MenuItem>
-                        <MenuItem onClick={handleClose}>Cancel</MenuItem>
                     </Menu>
+                        {props.usersPage ? 
                         <ul>
                             <li><FavoriteIcon/> {props.likes}</li>
                             <li><ModeCommentIcon/> {props.comments}</li>
                         </ul>
+                        :
+                        <ul style={{top: "45%"}}>
+                            <li><FavoriteIcon/> {props.likes}</li>
+                            <li><ModeCommentIcon/> {props.comments}</li>
+                        </ul>
+                        }
                         
                     </div>
-                </div>
+                </li>
     )
 }
 

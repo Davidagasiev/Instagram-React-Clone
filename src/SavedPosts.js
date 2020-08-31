@@ -313,7 +313,7 @@ const handleClose = () => {
             </ul>
 
             {/* Saved Posts */}
-            <PostGrid posts={props.posts.filter(post => JSON.parse(post.data.saved).some(i => {
+            <PostGrid usersPage={false} posts={props.posts.filter(post => JSON.parse(post.data.saved).some(i => {
           return i === (auth.currentUser ? auth.currentUser.uid : "")}))} />
             {/* Saved Posts */}
         </div>

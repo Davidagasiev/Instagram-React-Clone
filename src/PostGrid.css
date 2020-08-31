@@ -1,33 +1,35 @@
+
+*{
+    box-sizing: border-box;
+}
+
 .postgrid{
     margin-top: 40px;
     margin-bottom: 50px;
-    display: grid;
     width: 100%;
     min-height: 250px;
     max-width: 1000px;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 10px;
-    grid-row-gap: 10px;
 }
 
 .gridItem{
-    height: 100%;
+    float: left;
+    width: 300px;
+    height: 300px;
+    border: 1px solid lightgrey;
+    margin: 10px 1.5%;
+    position: relative;
+}
+
+.gridItem_div{
     width: 100%;
-    object-fit: cover;
+    height: 100%;
     background-size: cover;
 	background-position: 50% 50%;
 }
 
-.gridItem img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    user-select: none;
-}
-
 .overlay{
     position: relative;
-    bottom: 101%;
+    bottom: 100%;
     height: 100%;
     width: 100%;
     opacity: 0;
@@ -52,4 +54,66 @@
     display: inline;
     margin-right: 10px;
     font-size: 18px;
+}
+
+.overlay button{
+    color: whitesmoke;
+    position: relative; 
+    right: -40%;
+    top: 10px;
+}
+
+@media screen and (max-width: 990px) {
+    .gridItem{
+        height: 250px;
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .gridItem{
+        height: 150px;
+        width: 30%;
+        margin: 5px 1.5%;
+    }
+
+    .overlay button{ 
+        right: -25%;
+    }
+
+    .overlay ul{
+        top: 15%;
+    }
+    
+    .overlay svg{
+        width: 20px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .gridItem{
+        height: 120px;
+        width: 30%;
+        margin: 5px 1.5%;
+    }
+
+    .overlay svg{
+        width: 20px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .gridItem{
+        height: 120px;
+        width: 30%;
+        margin: 5px 1.5%;
+    }
+
+    .overlay li{
+        font-size: 15px;
+    }
+
+    .overlay svg{
+        width: 15px;
+    }
 }
