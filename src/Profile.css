@@ -23,6 +23,16 @@
     cursor: pointer;
 }
 
+.profile_infoavatar{
+    text-align: center;
+}
+
+.profile_infoavatar p{
+    color: #4169E1;
+    font-weight: 500;
+    cursor: pointer;
+}
+
 .profile_infotext{
     max-width: 400px;
     display: flex;

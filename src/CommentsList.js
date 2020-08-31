@@ -10,7 +10,7 @@ function CommentsList(props) {
     return (
         <div className="CommentsList">
             {!showComments ?
-                (<button onClick={setShowComments} className="commentsList_togglecomments">View All  Comments</button>)
+                (<button onClick={setShowComments} className="commentsList_togglecomments">View All {comments.length} Comments</button>)
                 :
                 (<>
                     <ul>

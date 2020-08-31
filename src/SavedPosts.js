@@ -210,8 +210,7 @@ const handleClose = () => {
             uid: auth.currentUser.uid
         })
         .then(function() {
-            const myPosts = props.posts.filter(post => post.data.uid === auth.currentUser.uid);
-            myPosts.forEach(post => {
+            props.posts.forEach(post => {
                 // To update UserPhoto
                 db.collection("posts").doc(post.id).set({
                   caption: post.data.caption,
@@ -263,6 +262,7 @@ const handleClose = () => {
             <div className="profile_info">
                  <div className="profile_infoavatar">
                       <div onClick={handleOpen} className="avatar" style={{backgroundImage: `url(${user.photoURL})`}}></div>
+                      <p onClick={handleOpen}>Change Photo</p>
                      <Modal
                       aria-labelledby="transition-modal-title"
                       aria-describedby="transition-modal-description"
@@ -285,13 +285,24 @@ const handleClose = () => {
                         multiple
                         type="file"
                       />
-                      <label style={{width: "100%", marginBottom: "20px"}} htmlFor="contained-button-file">
+                    { user.photoURL !== "https://us.v-cdn.net/6022045/uploads/defaultavatar.png" ?
+                      (<label style={{width: "100%"}} htmlFor="contained-button-file">
                         <Button style={{width: "100%"}} variant="contained" color="primary" component="span">
                           Upload Photo
                         </Button>
-                      </label>
-                      {showProgress ? <CircularProgress variant="static" value={progress} /> : ""}
+                      </label>)
+                      :
+                      (<label style={{width: "100%"}} htmlFor="contained-button-file">
+                        <Button style={{width: "100%"}} variant="contained" color="primary" component="span">
+                          Upload Photo
+                        </Button>
+                      </label>)
+                    }
+                      {showProgress ? <CircularProgress style={{marginTop: "20px"}} variant="static" value={progress} /> : ""}
+                        { user.photoURL !=="https://us.v-cdn.net/6022045/uploads/defaultavatar.png" ?
                         <Button onClick={removePhoto} variant="contained" style={{marginTop: "20px"}} color="secondary">Remove Current Photo</Button>
+                          : ""
+                        }
                         </div>
                       </Fade>
                     </Modal>
