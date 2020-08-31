@@ -1,5 +1,5 @@
 import React from "react";
-import { db } from "./firebase";
+import { db } from "../firebase";
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ModeCommentIcon from '@material-ui/icons/ModeComment';

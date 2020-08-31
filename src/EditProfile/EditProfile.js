@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./EditProfile.css"
-import { auth, storage, db } from "./firebase";
-import useToggle from "./Hooks/useToggle";
-import useInput from './Hooks/useInput';
+import { auth, storage, db } from "../firebase";
+import useToggle from "../Hooks/useToggle";
+import useInput from '../Hooks/useInput';
 
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';

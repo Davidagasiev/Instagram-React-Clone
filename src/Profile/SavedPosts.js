@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { auth, storage, db } from "./firebase";
+import { auth, storage, db } from "../firebase";
 import "./Profile.css";
-import PostGrid from "./PostGrid";
-import useToggle from "./Hooks/useToggle";
-import mergeSort from "./Hooks/mergeSort";
+import PostGrid from "../PostGrid/PostGrid";
+import useToggle from "../Hooks/useToggle";
+import mergeSort from "../Hooks/mergeSort";
 
 import { NavLink} from "react-router-dom";
 

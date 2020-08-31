@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Post.css";
-import CommentsList from "./CommentsList";
-import useInput from "./Hooks/useInput";
-import {db, auth} from "./firebase";
-import MiniProfile from "./MiniProfile";
+import CommentsList from "../Comments/CommentsList";
+import useInput from "../Hooks/useInput";
+import {db, auth} from "../firebase";
+import MiniProfile from "../Profile/MiniProfile";
 
 import { Avatar } from '@material-ui/core';
 

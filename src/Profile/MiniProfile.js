@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 
 import "./Profile.css";
-import PostGrid from "./PostGrid";
-import Navbar from "./Navbar";
+import PostGrid from "../PostGrid/PostGrid";
+import Navbar from "../Navbar/Navbar";
 
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';

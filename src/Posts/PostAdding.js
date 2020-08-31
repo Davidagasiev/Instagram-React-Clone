@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import "./PostAdding.css";
-import useInput from "./Hooks/useInput";
-import useToggle from "./Hooks/useToggle";
-import {db, auth, storage} from "./firebase";
+import useInput from "../Hooks/useInput";
+import useToggle from "../Hooks/useToggle";
+import {db, auth, storage} from "../firebase";
 
 import {v4 as uuid} from "uuid"
 

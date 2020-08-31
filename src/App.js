@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import "./App.css";
 import {db, auth} from "./firebase";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/Navbar";
 import Main from "./Main";
-import Profile from "./Profile";
-import SavedPosts from "./SavedPosts";
-import EditProfile from "./EditProfile";
+import Profile from "./Profile/Profile";
+import SavedPosts from "./Profile/SavedPosts";
+import EditProfile from "./EditProfile/EditProfile";
 
 import { Route, Switch, Redirect } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import "./CommentsList.css";
-import useToggle from "./Hooks/useToggle";
+import useToggle from "../Hooks/useToggle";
 
 import {v4 as uuid} from "uuid";
 
