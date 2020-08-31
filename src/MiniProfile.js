@@ -23,7 +23,7 @@ function MiniProfile(props) {
 
                 <div className="profile_info">
                     <div className="profile_infoavatar">
-                        <div className="avatar" style={{backgroundImage: `url(${props.userPhoto})`}}></div>
+                        <div className="avatar" style={{backgroundImage: `url(${props.userPhoto})`, cursor: "auto"}}></div>
                     </div>
 
                     <div className="profile_infotext">
