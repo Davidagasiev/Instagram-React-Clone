@@ -53,7 +53,39 @@ function Post(props) {
             .catch(function(error) {
                 console.error("Error writing document: ", error);
             });
-        resetCommentForm();}
+        resetCommentForm();
+        }
+    }
+
+    function commentEnterPressed(e) {
+        if(e.which === 13 && (commentForm !== "" && commentForm !== "\n" && commentForm !== "\n\n" && commentForm !== "\n\n\n" && commentForm !== "\n\n\n\n" && commentForm !== "\n\n\n\n\n")){
+
+            if(!auth.currentUser) {
+                alert("You are not logged in.")
+            }else{
+            const evalComments = JSON.parse(props.comments),
+            newComments = [...evalComments, {user: auth.currentUser.displayName, uid: auth.currentUser.uid, comment: commentForm}]
+            db.collection("posts").doc(props.id).set({
+                    caption: props.caption,
+                    imageUrl: props.imageUrl,
+                    userPhoto: props.userPhoto,
+                    likes: props.likes,
+                    user: props.user,
+                    saved: props.saved,
+                    comments: JSON.stringify(newComments),
+                    uid: props.uid,
+                    bio: props.bio,
+                    date: props.date
+                })
+                .then(function() {
+                    console.log("Comments was successfully added to post " + props.id);
+                })
+                .catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+            setTimeout(() => resetCommentForm(), 5);
+            }
+        }
     }
 
 
@@ -211,7 +243,8 @@ function Post(props) {
                 }
             <div className="post_commentform">
                 <form onSubmit={handleCommentSubmit}>
-                    <TextField 
+                    <TextField
+                    onKeyPress={commentEnterPressed}
                     style={{width: "100%"}}
                     value={commentForm} 
                     onChange={setCommentForm} 
