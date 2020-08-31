@@ -312,7 +312,7 @@ const handleClose = () => {
                     <h1 style={{marginBottom: "10px"}}>{user.displayName}</h1>
                     <Button variant="contained"><a href="/profile/settings" style={{width: "100%", color: "black"}}>Edit Profile</a></Button>
                     <p style={{textAlign: "center"}}><span>{props.posts.filter(post => JSON.parse(post.data.saved).some(i => {
-          return i === (auth.currentUser ? auth.currentUser.uid : "")})).length}</span> Posts</p>
+          return i === (auth.currentUser ? auth.currentUser.uid : "")})).length}</span> Saved Posts</p>
                     <span>{user.displayName}</span>
                   {bioUpdating ? bioForm : 
                     <p onDoubleClick={setBioUpdating}>{props.bio}</p>
