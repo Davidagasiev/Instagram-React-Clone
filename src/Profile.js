@@ -3,6 +3,7 @@ import { auth, storage, db } from "./firebase";
 import "./Profile.css";
 import PostGrid from "./PostGrid";
 import useToggle from "./Hooks/useToggle";
+import mergeSort from "./Hooks/mergeSort";
 
 import { NavLink} from "react-router-dom";
 
@@ -324,7 +325,7 @@ const handleClose = () => {
             </ul>
 
             {/* Posts */}
-              <PostGrid usersPage={true} posts={props.bubbleSort(props.posts.filter(post => post.data.uid === auth.currentUser.uid))}/>
+              <PostGrid usersPage={true} posts={mergeSort(props.posts.filter(post => post.data.uid === auth.currentUser.uid))}/>
             {/* Posts */}
         </div>
     )

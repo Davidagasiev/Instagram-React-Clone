@@ -3,6 +3,7 @@ import { auth, storage, db } from "./firebase";
 import "./Profile.css";
 import PostGrid from "./PostGrid";
 import useToggle from "./Hooks/useToggle";
+import mergeSort from "./Hooks/mergeSort";
 
 import { NavLink} from "react-router-dom";
 
@@ -325,8 +326,10 @@ const handleClose = () => {
             </ul>
 
             {/* Saved Posts */}
-            <PostGrid usersPage={false} posts={props.posts.filter(post => JSON.parse(post.data.saved).some(i => {
-          return i === (auth.currentUser ? auth.currentUser.uid : "")}))} />
+            <PostGrid usersPage={false} posts={mergeSort(
+              props.posts.filter(post => JSON.parse(post.data.saved).some(i => {
+          return i === (auth.currentUser ? auth.currentUser.uid : "")})))
+          } />
             {/* Saved Posts */}
         </div>
     )

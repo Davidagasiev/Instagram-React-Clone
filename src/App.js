@@ -11,23 +11,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 
 function App() {
 
-  function bubbleSort(arr){
-    let noSwaps;
-    for(let i = arr.length; i > 0; i--){
-      noSwaps = true;
-      for(let j = 0; j < i - 1; j++){
-        if(arr[j].data.date.toDate().getTime() < arr[j+1].data.date.toDate().getTime()){
-          let temp = arr[j];
-          arr[j] = arr[j+1];
-          arr[j+1] = temp;
-          noSwaps = false;         
-          }
-        }
-      if(noSwaps) break;
-    }
-  return arr;
-}
-
   const [posts, setPosts] = useState([])
   const [loading, setLoading] = useState(true);
 
@@ -80,7 +63,6 @@ useEffect(() => {
         <Switch>
 
           <Route exact path="/" render={() => <Main 
-            bubbleSort={bubbleSort} 
             posts={posts}/> }
           />
 
@@ -88,7 +70,6 @@ useEffect(() => {
           <Route exact path="/profile" render={ () =>
             <Profile 
               bio={bio} 
-              bubbleSort={bubbleSort} 
               users={users} 
               posts={posts.filter(post => post.data.uid === auth.currentUser.uid)}/>}
           />
@@ -96,7 +77,6 @@ useEffect(() => {
           <Route exact path="/profile/saved" render={() => 
             <SavedPosts 
               bio={bio} 
-              bubbleSort={bubbleSort} 
               users={users} 
               posts={posts}/>
             } 

@@ -1,5 +1,6 @@
 import React from "react";
 import PostList from "./PostList";
+import mergeSort from "./Hooks/mergeSort"
 
 import InstagramEmbed from 'react-instagram-embed';
 
@@ -9,7 +10,7 @@ function Main(props) {
         <>
             
           {/* Post List */}
-          <PostList posts={props.bubbleSort(props.posts)} />
+          <PostList posts={mergeSort(props.posts)} />
           {/* Post List */}
 
 
