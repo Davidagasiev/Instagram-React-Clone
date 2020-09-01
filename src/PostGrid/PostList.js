@@ -11,4 +11,4 @@ function PostList(props) {
     )
 }
 
-export default PostList;
+export default React.memo(PostList);

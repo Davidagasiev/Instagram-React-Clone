@@ -4,7 +4,6 @@ import {db, auth} from "./firebase";
 import Navbar from "./Navbar/Navbar";
 import Main from "./Main";
 import Profile from "./Profile/Profile";
-import SavedPosts from "./Profile/SavedPosts";
 import EditProfile from "./EditProfile/EditProfile";
 
 import { Route, Switch, Redirect } from "react-router-dom";
@@ -69,13 +68,15 @@ useEffect(() => {
 
           <Route exact path="/profile" render={ () =>
             <Profile 
+              saved={false}
               bio={bio} 
               users={users} 
               posts={posts.filter(post => post.data.uid === auth.currentUser.uid)}/>}
           />
 
           <Route exact path="/profile/saved" render={() => 
-            <SavedPosts 
+            <Profile
+              saved={true} 
               bio={bio} 
               users={users} 
               posts={posts}/>

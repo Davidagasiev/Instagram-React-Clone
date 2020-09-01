@@ -14,4 +14,4 @@ function PostGrid(props) {
     )
 }
 
-export default PostGrid;
+export default React.memo(PostGrid);

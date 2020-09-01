@@ -263,4 +263,4 @@ function Post(props) {
     )
 }
 
-export default Post;
+export default React.memo(Post);

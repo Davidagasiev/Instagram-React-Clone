@@ -68,4 +68,4 @@ function deletePost(){
     )
 }
 
-export default PostGridItem;
+export default React.memo(PostGridItem);

@@ -29,4 +29,4 @@ function CommentsList(props) {
     )
 }
 
-export default CommentsList;
+export default React.memo(CommentsList);
