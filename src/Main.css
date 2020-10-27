@@ -1,0 +1,44 @@
+.embed2{
+    background-color: white;
+    border: 1px solid lightgray;
+    padding: 10px 20px;
+}
+
+.embed2 .find, .embed2 .messengerP{
+    font-size: 20px;
+    font-weight: 500;
+    padding: 5px 10px;
+}
+
+.embed2 ul{
+    display: flex;
+    justify-content: space-between;
+}
+
+.embed2 li{
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.embed2 img{
+    width: 40px;
+    transition: all .2s ease-in-out;
+}
+
+.embed2 img:hover{
+    transform: scale(1.1);
+}
+
+.embed2 .messengerP{
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 5px 10px;
+}
+
+.embed2 .messengerClone{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
