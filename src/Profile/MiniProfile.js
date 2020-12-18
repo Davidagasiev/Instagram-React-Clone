@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 
 import "./Profile.css";
 import PostGrid from "../PostGrid/PostGrid";
@@ -12,36 +12,36 @@ function MiniProfile(props) {
 
     return (
         <>
-        <Navbar />
+            <Navbar />
 
-        <div className="container" style={{marginTop: "60px"}}>
-            <div className="Profile">
+            <div className="container" style={{ marginTop: "60px" }}>
+                <div className="Profile">
 
-                <IconButton style={{marginLeft: "10px"}} edge="start" color="inherit" onClick={props.onClose} aria-label="close">
-                <ArrowBackIcon />
-                </IconButton>
+                    <IconButton style={{ marginLeft: "10px" }} edge="start" color="inherit" onClick={props.onClose} aria-label="close">
+                        <ArrowBackIcon />
+                    </IconButton>
 
-                <div className="profile_info">
-                    <div className="profile_infoavatar">
-                        <div className="avatar" style={{backgroundImage: `url(${props.userPhoto})`, cursor: "auto"}}></div>
+                    <div className="profile_info">
+                        <div className="profile_infoavatar">
+                            <div className="avatar" style={{ backgroundImage: `url(${props.userPhoto})`, cursor: "auto" }}></div>
+                        </div>
+
+                        <div className="profile_infotext">
+                            <h1 style={{ marginBottom: "10px" }}>{props.userName}</h1>
+                            <p style={{ textAlign: "center" }}><span>{props.posts.filter(post => post.data.uid === props.uid).length}</span> Posts</p>
+
+                            <p>{props.bio}</p>
+
+                        </div>
                     </div>
 
-                    <div className="profile_infotext">
-                        <h1 style={{marginBottom: "10px"}}>{props.userName}</h1>
-                        <p style={{textAlign: "center"}}><span>{props.posts.filter(post => post.data.uid === props.uid).length}</span> Posts</p>
 
-                        <p>{props.bio}</p>
-
-                    </div>
+                    <Divider style={{ width: "100%", marginTop: "15px" }} />
+                    {/* Posts */}
+                    <PostGrid usersPage={false} posts={props.posts.filter(post => post.data.uid === props.uid)} />
+                    {/* Posts */}
                 </div>
-
-
-                <Divider style={{width: "100%", marginTop: "15px"}} />
-                {/* Posts */}
-                <PostGrid usersPage={false} posts={props.posts.filter(post => post.data.uid === props.uid)}/>
-                {/* Posts */}
             </div>
-        </div>
         </>
     )
 }

@@ -1,23 +1,18 @@
 import React, { useState, useEffect } from "react";
-import "./Post.css";
-import CommentsList from "../Comments/CommentsList";
-import useInput from "../Hooks/useInput";
-import {db, auth} from "../firebase";
-import MiniProfile from "../Profile/MiniProfile";
-
 import { Avatar } from '@material-ui/core';
-
+import Slide from '@material-ui/core/Slide';
+import Dialog from '@material-ui/core/Dialog';
+import TextField from '@material-ui/core/TextField';
+import BookmarkIcon from '@material-ui/icons/Bookmark';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-
-import BookmarkIcon from '@material-ui/icons/Bookmark';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
 
-import TextField from '@material-ui/core/TextField';
-
-import Dialog from '@material-ui/core/Dialog';
-import Slide from '@material-ui/core/Slide';
-
+import "./Post.css";
+import {db, auth} from "../firebase";
+import useInput from "../Hooks/useInput";
+import MiniProfile from "../Profile/MiniProfile";
+import CommentsList from "../Comments/CommentsList";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="left" ref={ref} {...props} />;

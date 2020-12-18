@@ -1,83 +1,83 @@
-*{
-    padding: 0;
-    margin: 0; 
-    font-family: -apple-system, BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;;
+* {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
 }
 
-html{
-    background-color: #fafafa;
+html {
+  background-color: #fafafa;
 }
 
-
-ul{
-    list-style-type: none;
+ul {
+  list-style-type: none;
 }
 
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
 
-.App{
-    background-color: #fafafa;
+.App {
+  background-color: #fafafa;
 }
 
-.container{
-    display: flex;
-    justify-content: space-between;
-    margin-top: 110px;
-    margin-bottom: 100px;
-    max-width: 1000px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 110px;
+  margin-bottom: 100px;
+  max-width: 1000px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.embed{
-    position: relative;
+.embed {
+  position: relative;
 }
 
 @media screen and (max-width: 900px) {
-	.embed{
-        display: none;
-    }
+  .embed {
+    display: none;
+  }
 
-    .container{
-        justify-content: center;
-    }
+  .container {
+    justify-content: center;
+  }
 }
 
 /* Loading Screen */
-.loadingScreen{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 10000;
-    background-color:#fafafa;
-    animation-name: loadingScreen;
-    animation-duration: 2.5s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.loadingScreen {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  background-color: #fafafa;
+  animation-name: loadingScreen;
+  animation-duration: 2.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-@keyframes loadingScreen{
-	0%{
-		opacity: 1;
-    }
-    70%{
-        opacity: 1;
-    }
-	100%{
-		opacity: 0;
-	}
+@keyframes loadingScreen {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
-.loadingScreen img{
-    width: 70px;
-    height: 70px;
+.loadingScreen img {
+  width: 70px;
+  height: 70px;
 }
 
 /* Loading Screen */

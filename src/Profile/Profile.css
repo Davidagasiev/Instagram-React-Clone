@@ -1,72 +1,71 @@
-.Profile{
-    width: 100%;
+.Profile {
+  width: 100%;
 }
 
-.profile_info{
-    width: 70%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+.profile_info {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
-.profile_info span{
-    font-weight: 600;
+.profile_info span {
+  font-weight: 600;
 }
 
-.avatar{
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    background-size: cover;
-    background-position: 50% 50%;
-    cursor: pointer;
+.avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: 50% 50%;
+  cursor: pointer;
 }
 
-.profile_infoavatar{
-    text-align: center;
+.profile_infoavatar {
+  text-align: center;
 }
 
-.profile_infoavatar p{
-    color: #4169E1;
-    font-weight: 500;
-    cursor: pointer;
+.profile_infoavatar p {
+  color: #4169e1;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-.profile_infotext{
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    text-align: center;
+.profile_infotext {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
 }
 
 .profile_infotext p {
-    line-height: 2;
+  line-height: 2;
 }
 
-.ulLink{
-    border-top:1px solid lightgrey;
-    color: lightgrey;
-    margin: 0 20px;
-    font-size: 20px;
+.ulLink {
+  border-top: 1px solid lightgrey;
+  color: lightgrey;
+  margin: 0 20px;
+  font-size: 20px;
 }
 
-.activeLink{
-    border-top:1px solid black;
-    color: black;
+.activeLink {
+  border-top: 1px solid black;
+  color: black;
 }
 
+@media screen and (max-width: 750px) {
+  .profile_info {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-@media screen and (max-width: 750px){
-    .profile_info{
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .profile_info h1{
-        font-size: 24px;
-    }
+  .profile_info h1 {
+    font-size: 24px;
+  }
 }
